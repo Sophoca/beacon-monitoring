@@ -4,13 +4,3 @@ body {
     font-family: 'Roboto', sans-serif;
     height: 100vh;
 }
-html,
-#layout,
-#layout > div {
-    height: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-}
-#layout_item > div {
-    float: left;
-}

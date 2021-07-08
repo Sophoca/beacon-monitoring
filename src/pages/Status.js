@@ -9,7 +9,7 @@ function Status({ match, location: { state } }) {
                 {match.params.location}
                 {match.params.floor}
             </div>
-            <Map style={{ float: 'left' }} imageURL={URL} />
+            <Map imageURL={URL} />
         </div>
     );
 }
