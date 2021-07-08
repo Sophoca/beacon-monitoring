@@ -1,11 +1,17 @@
 import React from 'react';
+import Map from '.././components/Map';
 
-const Status = ({ match }) => {
+function Status({ match, location: { state } }) {
+    const URL = state.parkingLotInfo;
     return (
         <div>
-            {match.params.status} {match.params.floor}
+            <div>
+                {match.params.location}
+                {match.params.floor}
+            </div>
+            <Map style={{ float: 'left' }} imageURL={URL} />
         </div>
     );
-};
+}
 
 export default Status;

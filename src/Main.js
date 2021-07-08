@@ -8,8 +8,8 @@ class Main extends Component {
             <div>
                 <Route exact path="/" component={Overview} />
                 <Switch>
-                    <Route path="/:status/:floor" component={Status} />
-                    <Route path="/:status" component={Status} />
+                    <Route path="/:location/:floor" component={Status} />
+                    <Route path="/:location" component={Status} />
                 </Switch>
             </div>
         );

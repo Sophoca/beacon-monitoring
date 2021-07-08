@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
     ProSidebar,
     Menu,
@@ -15,7 +15,7 @@ import { FcDoughnutChart } from 'react-icons/fc';
 
 const Aside = ({ lists }) => {
     return (
-        <ProSidebar style={{ height: '100vh' }}>
+        <ProSidebar>
             <SidebarHeader>
                 <div
                     style={{
@@ -35,7 +35,7 @@ const Aside = ({ lists }) => {
                         suffix={false}
                     >
                         Overview
-                        <NavLink exact to="/" />
+                        <Link to="/" />
                     </MenuItem>
                 </Menu>
                 <Menu iconShape="square">
@@ -58,7 +58,15 @@ const Aside = ({ lists }) => {
                                     return (
                                         <MenuItem className="MenuItem" key={key}>
                                             {obj[key].displayName}
-                                            <NavLink to={`/${list.key}/${key}`} />
+                                            <Link
+                                                to={{
+                                                    pathname: `/${list.key}/${key}`,
+                                                    state: {
+                                                        serverURL: list.serverURL,
+                                                        parkingLotInfo: list.parkingLotInfo
+                                                    }
+                                                }}
+                                            />
                                         </MenuItem>
                                     );
                                 })}
@@ -76,7 +84,16 @@ const Aside = ({ lists }) => {
                                 }
                             >
                                 {list.title}
-                                <NavLink to={`/${list.key}`} />
+                                <Link
+                                    to={{
+                                        pathname: `/${list.key}`,
+                                        state: {
+                                            serverURL: list.serverURL,
+                                            parkingLotInfo: list.parkingLotInfo,
+                                            imageSource: list.imageSource2
+                                        }
+                                    }}
+                                />
                             </MenuItem>
                         )
                     )}
