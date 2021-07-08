@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    color: #353535;
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+}
+html,
+#layout,
+#layout > div {
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+#layout_item > div {
+    float: left;
+}

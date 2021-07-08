@@ -1,0 +1,9 @@
+.aside,
+.main {
+    float: left;
+    height: 100%;
+}
+.layout {
+    display: 'flex';
+    height: 100vh;
+}
