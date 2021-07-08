@@ -1,7 +1,11 @@
 import React from 'react';
 
-const Status = () => {
-    return <div>status</div>;
+const Status = ({ match }) => {
+    return (
+        <div>
+            {match.params.status} {match.params.floor}
+        </div>
+    );
 };
 
 export default Status;

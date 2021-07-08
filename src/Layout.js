@@ -36,14 +36,14 @@ function Layout() {
     if (!lists) return <div>반환값 없음</div>;
     return (
         <div className="layout">
-            <div className="aside">
-                <Aside lists={lists}></Aside>
-            </div>
-            <div className="main">
-                <BrowserRouter>
+            <BrowserRouter>
+                <div className="aside">
+                    <Aside lists={lists}></Aside>
+                </div>
+                <div className="main">
                     <Main></Main>
-                </BrowserRouter>
-            </div>
+                </div>
+            </BrowserRouter>
         </div>
     );
 }

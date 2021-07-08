@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Overview, Status } from './pages';
 
 class Main extends Component {
@@ -7,7 +7,10 @@ class Main extends Component {
         return (
             <div>
                 <Route exact path="/" component={Overview} />
-                <Route path="/status" component={Status} />
+                <Switch>
+                    <Route path="/:status/:floor" component={Status} />
+                    <Route path="/:status" component={Status} />
+                </Switch>
             </div>
         );
     }
