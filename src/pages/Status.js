@@ -10,12 +10,12 @@ async function getLists({ URL }) {
 
 function Status({ match, location: { state } }) {
     const URL = state.parkingLotInfoURL;
-
     const { data, error, isLoading } = useAsync({
         promiseFn: getLists,
         URL,
         watch: match.params.location
     });
+    const detail = match.params.floor ? match.params.floor : state.imageSource;
 
     if (isLoading) return <div>로딩중..</div>;
     if (error) return <div>에러가 발생했습니다-Status</div>;
@@ -25,13 +25,10 @@ function Status({ match, location: { state } }) {
 
     return (
         <div>
-            <div>
-                {match.params.location}
-                {match.params.floor}
-            </div>
+            <div>{`${match.params.location} ${detail}`}</div>
             <Map
-                imageInfo={`${match.params.location} ${match.params.floor}`}
-                imageUrl={data.mapInfo.imageUrl[match.params.floor]}
+                imageInfo={`${match.params.location} ${detail}?`}
+                imageUrl={data.mapInfo.imageUrl[detail]}
             />
         </div>
     );

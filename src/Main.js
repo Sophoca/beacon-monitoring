@@ -7,7 +7,12 @@ class Main extends Component {
         return (
             <div>
                 <button
-                    style={{ color: 'white', backgroundColor: 'black' }}
+                    style={{
+                        color: 'white',
+                        backgroundColor: 'black',
+                        width: '100px',
+                        height: '30px'
+                    }}
                     onClick={this.props.reload}
                 >
                     reload
