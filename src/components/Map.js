@@ -3,7 +3,7 @@ import React from 'react';
 const Map = ({ imageInfo, imageUrl }) => {
     return (
         <div>
-            <img src={imageUrl} alt={imageInfo} height="900px" />
+            <img src={imageUrl} alt={imageInfo} />
         </div>
     );
 };
