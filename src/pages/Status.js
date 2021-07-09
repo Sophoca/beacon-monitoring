@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useAsync } from 'react-async';
 import Map from '.././components/Map';
-import ParkingSpaceLayout from '.././components/ParkingSpaceLayout';
+import BeaconLayout from '../components/BeaconLayout';
 
 async function getLists({ URL }) {
     const response = await axios.get(URL);
@@ -35,7 +35,7 @@ function Status({ match, location: { state } }) {
                 imageInfo={`${match.params.location} ${detail}`}
                 imageUrl={imageUrl}
             />
-            <ParkingSpaceLayout className="parkingSpaceLayout" beaconInfo={beaconInfo} />
+            <BeaconLayout className="beaconLayout" beaconInfo={beaconInfo} />
         </div>
     );
 }
