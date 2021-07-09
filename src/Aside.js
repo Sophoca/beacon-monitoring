@@ -63,7 +63,7 @@ const Aside = ({ lists }) => {
                                                     pathname: `/${list.key}/${key}`,
                                                     state: {
                                                         serverURL: list.serverURL,
-                                                        parkingLotInfo: list.parkingLotInfo
+                                                        parkingLotInfoURL: list.parkingLotInfo
                                                     }
                                                 }}
                                             />
@@ -89,7 +89,7 @@ const Aside = ({ lists }) => {
                                         pathname: `/${list.key}`,
                                         state: {
                                             serverURL: list.serverURL,
-                                            parkingLotInfo: list.parkingLotInfo,
+                                            parkingLotInfoURL: list.parkingLotInfo,
                                             imageSource: list.imageSource2
                                         }
                                     }}
