@@ -1,12 +1,15 @@
 .aside {
     position: fixed;
     height: 100%;
+    z-index: 20;
 }
 .main {
     margin-left: 270px;
     min-width: none;
     height: 100%;
+    z-index: 0;
 }
 .layout {
     height: 100vh;
+    z-index: 0;
 }

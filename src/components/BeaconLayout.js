@@ -14,12 +14,13 @@ const BeaconLayout = ({ allBeaconInfo, configSlot }) => {
                 zIndex: '1',
                 overflow: 'scroll',
                 width: '100%',
-                height: '1000px'
+                height: '100%'
             }}
         >
             {Object.keys(allBeaconInfo).map((beaconName, i) => (
                 <Beacon
                     key={i}
+                    title={beaconName}
                     className={beaconName}
                     top={allBeaconInfo[beaconName].top * heightRatio - beaconSize / 2}
                     left={allBeaconInfo[beaconName].left * heightRatio - beaconSize / 2}

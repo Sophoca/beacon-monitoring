@@ -15,7 +15,7 @@ import { FcDoughnutChart } from 'react-icons/fc';
 
 const Aside = ({ lists }) => {
     return (
-        <ProSidebar style={{ zIndex: '3' }}>
+        <ProSidebar>
             <SidebarHeader>
                 <div
                     style={{

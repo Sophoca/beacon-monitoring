@@ -31,7 +31,10 @@ function Status({ match, location: { state } }) {
     const allBeaconInfo = data.mapInfo.allBeaconInfo ? data.mapInfo.allBeaconInfo[detail] : null;
     console.log(allBeaconInfo);
     return (
-        <div className="Status" style={{ position: 'relative' }}>
+        <div
+            className="Status"
+            style={{ position: 'absolute', width: '100%', height: '100%', zIndex: '0' }}
+        >
             {/* <div>{`${location} ${detail}`}</div> */}
             <Map
                 imageInfo={`${location} ${detail}`}

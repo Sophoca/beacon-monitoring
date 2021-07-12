@@ -12,7 +12,8 @@ class Main extends Component {
                         backgroundColor: 'black',
                         width: '100px',
                         height: '30px',
-                        position: 'fixed'
+                        position: 'fixed',
+                        zIndex: '5'
                     }}
                     onClick={this.props.reload}
                 >

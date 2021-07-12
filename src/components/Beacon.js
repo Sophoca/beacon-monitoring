@@ -10,7 +10,9 @@ const Beacon = styled.div`
     background-color: green;
     border-radius: 50%;
     z-index: 10;
-    appearnace: auto;
+    &:hover {
+        background-color: blue;
+    }
 `;
 
 export default Beacon;
