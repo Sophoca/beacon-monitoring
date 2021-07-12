@@ -28,23 +28,15 @@ function Status({ match, location: { state } }) {
     console.log(data.mapInfo);
 
     const imageUrl = data.mapInfo.imageUrl[detail];
-    const heightRatio = data.mapInfo.configSlot[detail];
+    const configSlot = data.mapInfo.configSlot[detail];
     const allBeaconInfo = data.mapInfo.allBeaconInfo ? data.mapInfo.allBeaconInfo[detail] : null;
     console.log(allBeaconInfo);
     return (
-        <div style={{ position: 'relative' }}>
+        <div className="Status" style={{ position: 'relative' }}>
             {/* <div>{`${location} ${detail}`}</div> */}
-            <Map
-                className="parkingSpaceImage"
-                imageInfo={`${location} ${detail}`}
-                imageUrl={imageUrl}
-            />
+            <Map imageInfo={`${location} ${detail}`} imageUrl={imageUrl} />
             {allBeaconInfo ? (
-                <BeaconLayout
-                    className="beaconLayout"
-                    allBeaconInfo={allBeaconInfo}
-                    heightRatio={heightRatio}
-                />
+                <BeaconLayout allBeaconInfo={allBeaconInfo} configSlot={configSlot} />
             ) : null}
         </div>
     );

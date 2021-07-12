@@ -3,11 +3,12 @@ import React from 'react';
 const Map = ({ imageInfo, imageUrl }) => {
     return (
         <div
+            className="Map"
             style={{
                 position: 'absolute',
                 top: '0px',
                 left: '0px',
-                zIndex: '-1',
+                zIndex: '-3',
                 overflow: 'scroll'
             }}
         >
