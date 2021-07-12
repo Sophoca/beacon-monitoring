@@ -3,7 +3,7 @@ import Beacon from './Beacon';
 
 const BeaconLayout = ({ allBeaconInfo, configSlot }) => {
     const heightRatio = 1000.0 / configSlot.parkingLotSize.height;
-    const beaconSize = 10;
+    const beaconSize = 15;
     const beacons = (
         <div
             className="BeaconLayout"
@@ -11,7 +11,7 @@ const BeaconLayout = ({ allBeaconInfo, configSlot }) => {
                 position: 'absolute',
                 top: '0px',
                 left: '0px',
-                zIndex: '3',
+                zIndex: '1',
                 overflow: 'scroll',
                 width: '100%',
                 height: '1000px'

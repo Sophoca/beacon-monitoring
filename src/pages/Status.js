@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { useAsync } from 'react-async';
 import Map from '.././components/Map';
-import BeaconLayout from '../components/BeaconLayout';
 
 async function getLists({ URL }) {
     const response = await axios.get(URL);
@@ -34,10 +33,12 @@ function Status({ match, location: { state } }) {
     return (
         <div className="Status" style={{ position: 'relative' }}>
             {/* <div>{`${location} ${detail}`}</div> */}
-            <Map imageInfo={`${location} ${detail}`} imageUrl={imageUrl} />
-            {allBeaconInfo ? (
-                <BeaconLayout allBeaconInfo={allBeaconInfo} configSlot={configSlot} />
-            ) : null}
+            <Map
+                imageInfo={`${location} ${detail}`}
+                imageUrl={imageUrl}
+                allBeaconInfo={allBeaconInfo}
+                configSlot={configSlot}
+            />
         </div>
     );
 }
