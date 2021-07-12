@@ -9,13 +9,15 @@ async function getLists({ URL }) {
 }
 
 function Status({ match, location: { state } }) {
-    const URL = state.parkingLotInfoURL;
+    const parkingLotURL = state.parkingLotInfoURL;
+    const realBeaconURL = state.realBeaconURL;
     const { location, floor } = match.params;
+
     const detail = floor ? floor : state.imageSource;
 
     const { data, error, isLoading } = useAsync({
         promiseFn: getLists,
-        URL,
+        URL: parkingLotURL,
         watch: location
     });
 

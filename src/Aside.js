@@ -63,7 +63,8 @@ const Aside = ({ lists }) => {
                                                     pathname: `/${list.key}/${key}`,
                                                     state: {
                                                         serverURL: list.serverURL,
-                                                        parkingLotInfoURL: list.parkingLotInfo
+                                                        parkingLotInfoURL: list.parkingLotInfo,
+                                                        realBeaconURL: list.beaconCollector
                                                     }
                                                 }}
                                             />
@@ -90,7 +91,8 @@ const Aside = ({ lists }) => {
                                         state: {
                                             serverURL: list.serverURL,
                                             parkingLotInfoURL: list.parkingLotInfo,
-                                            imageSource: list.imageSource2
+                                            imageSource: list.imageSource2,
+                                            realBeaconURL: list.beaconCollector
                                         }
                                     }}
                                 />
