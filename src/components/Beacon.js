@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Beacon = styled.div`
+const Beacon = styled.div.attrs(props => ({
+    style: {
+        top: props.top,
+        left: props.left,
+        width: props.beaconSize,
+        height: props.beaconSize
+    }
+}))`
     position: absolute;
-    top: ${props => props.top}px;
-    left: ${props => props.left}px;
-    width: ${props => props.beaconSize}px;
-    height: ${props => props.beaconSize}px;
     background-color: green;
     border-radius: 50%;
     z-index: 10;

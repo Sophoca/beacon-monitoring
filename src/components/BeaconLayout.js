@@ -1,4 +1,3 @@
-import React from 'react';
 import Beacon from './Beacon';
 
 const BeaconLayout = ({ allBeaconInfo, configSlot }) => {
