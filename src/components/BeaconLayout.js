@@ -16,15 +16,13 @@ const BeaconLayout = ({ allBeaconInfo, configSlot }) => {
                 height: '100%'
             }}
         >
-            {Object.keys(allBeaconInfo).map((beaconName, i) => (
+            {Object.keys(allBeaconInfo).map(beaconName => (
                 <Beacon
-                    key={i}
-                    title={beaconName}
-                    className={beaconName}
+                    key={beaconName}
                     top={allBeaconInfo[beaconName].top * heightRatio - beaconSize / 2}
                     left={allBeaconInfo[beaconName].left * heightRatio - beaconSize / 2}
                     beaconSize={beaconSize}
-                ></Beacon>
+                />
             ))}
         </div>
     );

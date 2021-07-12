@@ -1,7 +1,7 @@
 import React from 'react';
 import BeaconLayout from '../components/BeaconLayout';
 
-const Map = ({ imageInfo, imageUrl, allBeaconInfo, configSlot }) => {
+const Map = ({ imageInfo, imageUrl, allBeaconInfo, configSlot, realBeaconURL }) => {
     return (
         <div
             className="Map"

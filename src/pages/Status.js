@@ -39,6 +39,7 @@ function Status({ match, location: { state } }) {
                 imageUrl={imageUrl}
                 allBeaconInfo={allBeaconInfo}
                 configSlot={configSlot}
+                realBeaconURL={realBeaconURL}
             />
         </div>
     );
