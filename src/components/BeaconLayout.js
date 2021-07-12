@@ -1,12 +1,24 @@
 import React from 'react';
 import Beacon from './Beacon';
 
-const BeaconLayout = ({ beaconInfo }) => {
-    console.log('상단', typeof beaconInfo);
+const BeaconLayout = ({ allBeaconInfo, heightRatio }) => {
     const beacons = (
-        <div style={{ top: '0', position: 'absoloute', zIndex: '1' }}>
-            {Object.keys(beaconInfo).map((beaconName, i) => (
-                <a key={i}>{beaconInfo[beaconName].minor}</a>
+        <div
+            style={{
+                position: 'absolute',
+                top: '0px',
+                left: '0px',
+                zIndex: '-1',
+                overflow: 'scroll'
+            }}
+        >
+            {Object.keys(allBeaconInfo).map((beaconName, i) => (
+                <Beacon
+                    key={i}
+                    className={beaconName}
+                    top={allBeaconInfo[beaconName].top / heightRatio}
+                    left={allBeaconInfo[beaconName].left / heightRatio}
+                ></Beacon>
             ))}
         </div>
     );

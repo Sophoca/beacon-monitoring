@@ -20,22 +20,32 @@ function Status({ match, location: { state } }) {
     const detail = floor ? floor : state.imageSource;
 
     if (isLoading) return <div>로딩중..</div>;
-    if (error) return <div>에러가 발생했습니다-Status</div>;
+    if (error) return <div>에러가 발생했습니다-Status {error}</div>;
     if (!data) return <div>반환값 없음-Status</div>;
 
-    const imageUrl = data.mapInfo.imageUrl[detail];
-    const beaconInfo =
-        location === 'Cheonho' || location === 'Kintex' ? data.mapInfo.allBeaconInfo[detail] : null;
+    console.log(location, detail);
+    console.log(URL);
+    console.log(data.mapInfo);
 
+    const imageUrl = data.mapInfo.imageUrl[detail];
+    const heightRatio = data.mapInfo.configSlot[detail];
+    const allBeaconInfo = data.mapInfo.allBeaconInfo ? data.mapInfo.allBeaconInfo[detail] : null;
+    console.log(allBeaconInfo);
     return (
-        <div>
-            <div>{`${match.params.location} ${detail}`}</div>
+        <div style={{ position: 'relative' }}>
+            {/* <div>{`${location} ${detail}`}</div> */}
             <Map
                 className="parkingSpaceImage"
-                imageInfo={`${match.params.location} ${detail}`}
+                imageInfo={`${location} ${detail}`}
                 imageUrl={imageUrl}
             />
-            <BeaconLayout className="beaconLayout" beaconInfo={beaconInfo} />
+            {allBeaconInfo ? (
+                <BeaconLayout
+                    className="beaconLayout"
+                    allBeaconInfo={allBeaconInfo}
+                    heightRatio={heightRatio}
+                />
+            ) : null}
         </div>
     );
 }

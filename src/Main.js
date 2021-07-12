@@ -11,17 +11,20 @@ class Main extends Component {
                         color: 'white',
                         backgroundColor: 'black',
                         width: '100px',
-                        height: '30px'
+                        height: '30px',
+                        position: 'fixed'
                     }}
                     onClick={this.props.reload}
                 >
                     reload
                 </button>
-                <Route exact path="/" component={Overview} />
-                <Switch>
-                    <Route path="/:location/:floor" component={Status} />
-                    <Route path="/:location" component={Status} />
-                </Switch>
+                <div>
+                    <Route exact path="/" component={Overview} />
+                    <Switch>
+                        <Route path="/:location/:floor" component={Status} />
+                        <Route path="/:location" component={Status} />
+                    </Switch>
+                </div>
             </div>
         );
     }

@@ -1,9 +1,12 @@
-.parkingSpaceImage {
+/* .parkingSpaceImage {
     position: absolute;
     z-index: 1;
-    max-height: min-content;
+    top: 0;
+    left: 0;
 }
 .parkingSpaceLayout {
     position: absolute;
     z-index: 2;
-}
+    top: 0;
+    left: 0;
+} */
