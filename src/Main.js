@@ -11,13 +11,13 @@ class Main extends Component {
                         color: 'white',
                         backgroundColor: 'black',
                         width: '100px',
-                        height: '30px',
+                        height: '40px',
                         position: 'fixed',
                         zIndex: '15'
                     }}
                     onClick={this.props.reload}
                 >
-                    reload
+                    reload<br></br>main API
                 </button>
                 <Route exact path="/" component={Overview} />
                 <Switch>

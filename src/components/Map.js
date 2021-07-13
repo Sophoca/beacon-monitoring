@@ -9,7 +9,7 @@ async function getLists({ URL }) {
 }
 
 const Map = ({ imageInfo, imageUrl, allBeaconInfo, configSlot, realBeaconURL }) => {
-    const { data, error, isLoading } = useAsync({
+    const { data, error, isLoading, reload } = useAsync({
         promiseFn: getLists,
         URL: realBeaconURL,
         watch: allBeaconInfo
@@ -19,6 +19,7 @@ const Map = ({ imageInfo, imageUrl, allBeaconInfo, configSlot, realBeaconURL }) 
     if (error) return <div> 에러가 발생했습니다-Status {error}</div>;
     if (!data) return <div> 반환값 없음-Status</div>;
 
+    console.log(allBeaconInfo);
     console.log(data);
 
     return (
@@ -33,6 +34,20 @@ const Map = ({ imageInfo, imageUrl, allBeaconInfo, configSlot, realBeaconURL }) 
             }}
         >
             <img src={imageUrl} alt={imageInfo} height="1000px" />
+            <button
+                style={{
+                    color: 'white',
+                    backgroundColor: 'black',
+                    width: '100px',
+                    height: '40px',
+                    position: 'fixed',
+                    zIndex: '250',
+                    left: '370px'
+                }}
+                onClick={reload}
+            >
+                reload<br></br>beacon API
+            </button>
             {allBeaconInfo ? (
                 <BeaconLayout allBeaconInfo={allBeaconInfo} configSlot={configSlot} />
             ) : null}
