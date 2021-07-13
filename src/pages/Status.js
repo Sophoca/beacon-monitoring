@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useAsync } from 'react-async';
-import Map from '.././components/Map';
+import Map from '../components/Map';
 
 async function getLists({ URL }) {
     const response = await axios.get(URL);
@@ -12,7 +12,6 @@ function Status({ match, location: { state } }) {
     const parkingLotURL = state.parkingLotInfoURL;
     const realBeaconURL = state.realBeaconURL;
     const { location, floor } = match.params;
-
     const detail = floor ? floor : state.imageSource;
 
     const { data, error, isLoading } = useAsync({
