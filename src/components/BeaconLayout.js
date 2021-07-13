@@ -7,15 +7,6 @@ async function getLists({ URL }) {
     return response.data;
 }
 
-function IntegratedBeaconInfo(allBeaconInfo, realBeaconInfo, heightRatio, beaconSize) {
-    const integratedBeaconInfo = {};
-    allBeaconInfo.forEach(beacon => {
-        const key = Object.keys(beacon);
-        integratedBeaconInfo[key] = { top: allBeaconInfo[key].top, left: allBeaconInfo[key].left };
-    });
-    return {};
-}
-
 const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
     const heightRatio = 1000.0 / configSlot.parkingLotSize.height;
     const beaconSize = 15;
@@ -25,20 +16,30 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
         watch: allBeaconInfo
     });
 
-    function mouseOver() {
-        return (
-            <div style={{ position: 'absolute', top: '500px', left: '500px', zIndex: '20' }}>
-                Hi
-            </div>
-        );
-    }
-
     if (isLoading) return <div> 로딩중..</div>;
     if (error) return <div> 에러가 발생했습니다-Status {error}</div>;
     if (!data) return <div> 반환값 없음-Status</div>;
 
     console.log(allBeaconInfo);
     console.log(data);
+
+    const temp = Object.values(data)
+        .map(v => [v.input])
+        .reduce(
+            (obj, d) => ({
+                ...obj,
+                [d.ibeaconMinor]: { ...d }
+            }),
+            {}
+        );
+    console.log(temp);
+
+    // const integratedBeaconInfo = new Object();
+    // allBeaconInfo.map(obj => {
+    //     const key = Object.keys(obj);
+    //     integratedBeaconInfo[obj] = { top: obj.top, left: obj.left };
+    // });
+    // console.log(integratedBeaconInfo);
 
     return (
         <div
@@ -74,7 +75,6 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
                         top={allBeaconInfo[beaconName].top * heightRatio - beaconSize / 2}
                         left={allBeaconInfo[beaconName].left * heightRatio - beaconSize / 2}
                         beaconSize={beaconSize}
-                        onClick={mouseOver}
                     />
                 );
             })}
