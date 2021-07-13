@@ -12,11 +12,11 @@ const Beacon = styled.div.attrs(props => ({
         top: props.top,
         left: props.left,
         width: props.beaconSize,
-        height: props.beaconSize
+        height: props.beaconSize,
+        background: props.isActive ? 'green' : 'red'
     }
 }))`
     position: absolute;
-    background-color: green;
     border-radius: 50%;
     z-index: 10;
     &:hover {
@@ -54,6 +54,8 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
         {}
     );
 
+    console.log(realBeaconInfo);
+
     return (
         <div
             className="BeaconLayout"
@@ -82,13 +84,14 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
                 reload<br></br>beacon API
             </button>
             {Object.keys(allBeaconInfo).map(beaconName => {
+                const isActive = realBeaconInfo[beaconName] ? true : false;
                 return (
                     <Beacon
                         key={beaconName}
                         top={allBeaconInfo[beaconName].top * heightRatio - beaconSize / 2}
                         left={allBeaconInfo[beaconName].left * heightRatio - beaconSize / 2}
                         beaconSize={beaconSize}
-                        realBeaconInfo={realBeaconInfo[beaconName] || null}
+                        isActive={isActive}
                     />
                 );
             })}
