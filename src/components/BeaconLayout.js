@@ -1,11 +1,28 @@
 import axios from 'axios';
 import { useAsync } from 'react-async';
-import Beacon from './Beacon';
+import styled from 'styled-components';
 
 async function getLists({ URL }) {
     const response = await axios.get(URL);
     return response.data;
 }
+
+const Beacon = styled.div.attrs(props => ({
+    style: {
+        top: props.top,
+        left: props.left,
+        width: props.beaconSize,
+        height: props.beaconSize
+    }
+}))`
+    position: absolute;
+    background-color: green;
+    border-radius: 50%;
+    z-index: 10;
+    &:hover {
+        background-color: blue;
+    }
+`;
 
 const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
     const heightRatio = 1000.0 / configSlot.parkingLotSize.height;
@@ -23,23 +40,19 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
     console.log(allBeaconInfo);
     console.log(data);
 
-    const temp = Object.values(data)
-        .map(v => [v.input])
-        .reduce(
-            (obj, d) => ({
-                ...obj,
-                [d.ibeaconMinor]: { ...d }
-            }),
-            {}
-        );
-    console.log(temp);
-
-    // const integratedBeaconInfo = new Object();
-    // allBeaconInfo.map(obj => {
-    //     const key = Object.keys(obj);
-    //     integratedBeaconInfo[obj] = { top: obj.top, left: obj.left };
-    // });
-    // console.log(integratedBeaconInfo);
+    const realBeaconInfo = Object.values(data).reduce(
+        (obj, d) => ({
+            ...obj,
+            ...Object.values(d.input || {}).reduce(
+                (obj2, d2) => ({
+                    ...obj2,
+                    [d2.ibeaconMinor]: { ...d2 }
+                }),
+                {}
+            )
+        }),
+        {}
+    );
 
     return (
         <div
@@ -75,6 +88,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
                         top={allBeaconInfo[beaconName].top * heightRatio - beaconSize / 2}
                         left={allBeaconInfo[beaconName].left * heightRatio - beaconSize / 2}
                         beaconSize={beaconSize}
+                        realBeaconInfo={realBeaconInfo[beaconName] || null}
                     />
                 );
             })}
