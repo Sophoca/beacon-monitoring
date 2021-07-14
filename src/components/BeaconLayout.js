@@ -1,3 +1,4 @@
+import React from 'react';
 import axios from 'axios';
 import { useAsync } from 'react-async';
 import styled from 'styled-components';
@@ -48,8 +49,8 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
         {}
     );
 
-    console.log(allBeaconInfo);
-    console.log(realBeaconInfo);
+    // console.log(allBeaconInfo);
+    // console.log(realBeaconInfo);
 
     return (
         <div
@@ -81,7 +82,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
             {Object.keys(allBeaconInfo).map(beaconName => {
                 const current = realBeaconInfo[beaconName];
                 const isActive = current ? true : false;
-                const msg = isActive
+                const message = isActive
                     ? `
 timestamp: ${current.timestamp}
 type: ${current.type}
@@ -93,7 +94,8 @@ ibeaconMinor: ${current.ibeaconMinor}
 rssi: ${current.rssi}
 ibeaconTxPower: ${current.ibeaconTxPower}
 battery: ${current.battery}`
-                    : 'no signal';
+                    : '\nno signal';
+
                 return (
                     <Beacon
                         key={beaconName}
@@ -101,7 +103,7 @@ battery: ${current.battery}`
                         left={allBeaconInfo[beaconName].left * heightRatio - beaconSize / 2}
                         beaconSize={beaconSize}
                         isActive={isActive}
-                        onClick={() => alert(msg)}
+                        onClick={() => alert('#' + beaconName + message)}
                     ></Beacon>
                 );
             })}

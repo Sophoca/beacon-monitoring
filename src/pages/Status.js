@@ -32,7 +32,6 @@ function Status({ match, location: { state } }) {
             className="Status"
             style={{ position: 'absolute', width: '100%', height: '100%', zIndex: '0' }}
         >
-            {/* <div>{`${location} ${detail}`}</div> */}
             <Map
                 imageInfo={`${location} ${detail}`}
                 imageUrl={imageUrl}
