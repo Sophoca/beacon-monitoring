@@ -19,9 +19,6 @@ const Beacon = styled.div.attrs(props => ({
     position: absolute;
     border-radius: 50%;
     z-index: 10;
-    &:hover {
-        background-color: blue;
-    }
 `;
 
 const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
@@ -37,9 +34,6 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
     if (error) return <div> 에러가 발생했습니다-Status {error}</div>;
     if (!data) return <div> 반환값 없음-Status</div>;
 
-    console.log(allBeaconInfo);
-    console.log(data);
-
     const realBeaconInfo = Object.values(data).reduce(
         (obj, d) => ({
             ...obj,
@@ -54,6 +48,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
         {}
     );
 
+    console.log(allBeaconInfo);
     console.log(realBeaconInfo);
 
     return (
@@ -84,7 +79,21 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
                 reload<br></br>beacon API
             </button>
             {Object.keys(allBeaconInfo).map(beaconName => {
-                const isActive = realBeaconInfo[beaconName] ? true : false;
+                const current = realBeaconInfo[beaconName];
+                const isActive = current ? true : false;
+                const msg = isActive
+                    ? `
+timestamp: ${current.timestamp}
+type: ${current.type}
+mac: ${current.mac}
+bleName: ${current.bleName}
+ibeaconUuid: ${current.ibeaconUuid}
+ibeaconMajor: ${current.ibeaconMajor}
+ibeaconMinor: ${current.ibeaconMinor}
+rssi: ${current.rssi}
+ibeaconTxPower: ${current.ibeaconTxPower}
+battery: ${current.battery}`
+                    : 'no signal';
                 return (
                     <Beacon
                         key={beaconName}
@@ -92,7 +101,8 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
                         left={allBeaconInfo[beaconName].left * heightRatio - beaconSize / 2}
                         beaconSize={beaconSize}
                         isActive={isActive}
-                    />
+                        onClick={() => alert(msg)}
+                    ></Beacon>
                 );
             })}
         </div>
