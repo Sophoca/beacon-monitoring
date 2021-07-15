@@ -20,7 +20,7 @@ function Status({ match, location: { state } }) {
         watch: location
     });
 
-    if (isLoading) return <div>로딩중..</div>;
+    if (isLoading) return <div>로딩중-Status</div>;
     if (error) return <div>에러가 발생했습니다-Status {error}</div>;
     if (!data) return <div>반환값 없음-Status</div>;
 

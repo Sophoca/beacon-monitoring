@@ -31,9 +31,9 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
         watch: allBeaconInfo
     });
 
-    if (isLoading) return <div> 로딩중..</div>;
-    if (error) return <div> 에러가 발생했습니다-Status {error}</div>;
-    if (!data) return <div> 반환값 없음-Status</div>;
+    if (isLoading) return <div> 로딩중-BeaconLayout</div>;
+    if (error) return <div> 에러가 발생했습니다-BeaconLayout {error}</div>;
+    if (!data) return <div> 반환값 없음-BeaconLayout</div>;
 
     const realBeaconInfo = Object.values(data).reduce(
         (obj, d) => ({
