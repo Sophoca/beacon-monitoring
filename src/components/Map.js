@@ -8,7 +8,7 @@ const Map = ({ imageInfo, imageUrl, allBeaconInfo, configSlot, realBeaconURL }) 
             style={{
                 position: 'absolute',
                 top: '0px',
-                left: '0px',
+                left: '100px',
                 zIndex: '-3',
                 overflow: 'scroll'
             }}

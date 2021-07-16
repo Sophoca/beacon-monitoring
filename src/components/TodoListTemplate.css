@@ -1,0 +1,18 @@
+.todo-list-template {
+    background: white;
+    width: 100px;
+    position: fixed;
+    z-index: 11;
+    top: 80px;
+    left: 270px;
+    max-height: 80%;
+    overflow-y: scroll;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.title {
+    padding: 0.5rem;
+    text-align: center;
+    background: #22b8cf;
+    color: white;
+}

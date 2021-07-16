@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useAsync } from 'react-async';
 import styled from 'styled-components';
+import RestBeaconTemplate from './RestBeaconTemplate';
 
 async function getLists({ URL }) {
     const response = await axios.get(URL);
@@ -20,6 +21,26 @@ const Beacon = styled.div.attrs(props => ({
     position: absolute;
     border-radius: 50%;
     z-index: 10;
+`;
+
+const BeaconLayoutDiv = styled.div`
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 11;
+    width: 100%;
+    height: 100%;
+`;
+
+const ReloadBtn = styled.button`
+    color: white;
+    background-color: black;
+    width: 100px;
+    height: 40px;
+    position: fixed;
+    z-index: 250;
+    left: 270px;
+    top: 40px;
 `;
 
 const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
@@ -49,39 +70,25 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
         {}
     );
 
-    // console.log(allBeaconInfo);
-    // console.log(realBeaconInfo);
+    console.log(allBeaconInfo);
+    console.log(realBeaconInfo);
+
+    const allBeaconKeys = Object.keys(allBeaconInfo);
+    const keys = Object.keys(realBeaconInfo).filter(key => !allBeaconKeys.includes(key));
+    console.log(keys);
 
     return (
-        <div
-            className="BeaconLayout"
-            style={{
-                position: 'absolute',
-                top: '0px',
-                left: '0px',
-                zIndex: '1',
-                overflow: 'scroll',
-                width: '100%',
-                height: '100%'
-            }}
-        >
-            <button
-                style={{
-                    color: 'white',
-                    backgroundColor: 'black',
-                    width: '100px',
-                    height: '40px',
-                    position: 'fixed',
-                    zIndex: '250',
-                    left: '370px'
-                }}
-                onClick={reload}
-            >
+        <BeaconLayoutDiv>
+            <ReloadBtn onClick={reload}>
                 reload<br></br>beacon API
-            </button>
+            </ReloadBtn>
+
+            <RestBeaconTemplate restKeys={keys} />
+
             {Object.keys(allBeaconInfo).map(beaconName => {
                 const current = realBeaconInfo[beaconName];
                 const isActive = current ? true : false;
+
                 const message = isActive
                     ? `
 timestamp: ${current.timestamp}
@@ -107,7 +114,7 @@ battery: ${current.battery}`
                     ></Beacon>
                 );
             })}
-        </div>
+        </BeaconLayoutDiv>
     );
 };
 
