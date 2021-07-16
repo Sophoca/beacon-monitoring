@@ -3,7 +3,7 @@ import BeaconLayout from './BeaconLayout';
 
 const Map = ({ location, detail, imageUrl, allBeaconInfo, configSlot, realBeaconURL }) => {
     const imageInfo = `${location} ${detail}`;
-    const imgHeight = location === 'Kintex' ? 900 : 500;
+    const imgHeight = location === 'Kintex' ? 900 : location === 'Cheonho' ? 500 : 800;
     return (
         <div
             className="Map"
