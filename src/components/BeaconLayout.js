@@ -43,8 +43,8 @@ const ReloadBtn = styled.button`
     top: 40px;
 `;
 
-const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
-    const heightRatio = 1000.0 / configSlot.parkingLotSize.height;
+const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight }) => {
+    const heightRatio = imgHeight / configSlot.parkingLotSize.height;
     const beaconSize = 15;
     const { data, error, isLoading, reload } = useAsync({
         promiseFn: getLists,
@@ -70,7 +70,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot }) => {
         {}
     );
 
-    console.log(allBeaconInfo);
+    // console.log(allBeaconInfo);
     console.log(realBeaconInfo);
 
     const allBeaconKeys = Object.keys(allBeaconInfo);
