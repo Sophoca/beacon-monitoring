@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useAsync } from 'react-async';
+import deepmerge from 'deepmerge';
 import styled from 'styled-components';
 import RestBeaconTemplate from './RestBeaconTemplate';
 
@@ -56,16 +57,31 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight }) =
     if (error) return <div> 에러가 발생했습니다-BeaconLayout {error}</div>;
     if (!data) return <div> 반환값 없음-BeaconLayout</div>;
 
+    const realBeaconInfo2 = Object.values(data).reduce(
+        (obj, d, idx) =>
+            deepmerge(
+                obj,
+                Object.values(d.input || {}).reduce(
+                    (obj2, d2) => ({
+                        ...obj2,
+                        [d2.ibeaconMajor]: {
+                            ...obj2[d2.ibeaconMajor],
+                            [d2.ibeaconMinor]: { ...d2 }
+                        }
+                    }),
+                    {}
+                )
+            ),
+        {}
+    );
+
     const realBeaconInfo = Object.values(data).reduce(
         (obj, d) => ({
             ...obj,
             ...Object.values(d.input || {}).reduce(
                 (obj2, d2) => ({
                     ...obj2,
-                    [d2.ibeaconMajor]: {
-                        ...obj2[d2.ibeaconMajor],
-                        ...{ [d2.ibeaconMinor]: { ...d2 } }
-                    }
+                    [d2.ibeaconMinor]: { ...d2 }
                 }),
                 {}
             )
@@ -73,12 +89,12 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight }) =
         {}
     );
 
-    console.log(allBeaconInfo);
     console.log(realBeaconInfo);
+    console.log(realBeaconInfo2);
 
     const allBeaconKeys = Object.keys(allBeaconInfo);
     const keys = Object.keys(realBeaconInfo).filter(key => !allBeaconKeys.includes(key));
-    console.log(keys);
+    // console.log(keys);
 
     return (
         <BeaconLayoutDiv>
