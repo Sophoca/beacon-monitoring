@@ -1,9 +1,11 @@
 import React from 'react';
 import BeaconLayout from './BeaconLayout';
 
+const mapSize = { Kintex: 900, Cheonho: 500, PyeongchonUrvineFirst: 900, default: 800 };
+
 const Map = ({ location, detail, imageUrl, allBeaconInfo, configSlot, realBeaconURL }) => {
     const imageInfo = `${location} ${detail}`;
-    const imgHeight = location === 'Kintex' ? 900 : location === 'Cheonho' ? 500 : 800;
+    const imgHeight = mapSize[location] ? mapSize[location] : mapSize.default;
     return (
         <div
             className="Map"

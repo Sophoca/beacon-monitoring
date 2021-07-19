@@ -46,7 +46,7 @@ const ReloadBtn = styled.button`
 
 const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight }) => {
     const heightRatio = imgHeight / configSlot.parkingLotSize.height;
-    const beaconSize = 15;
+    const beaconSize = 12;
     const { data, error, isLoading, reload } = useAsync({
         promiseFn: getLists,
         URL: realBeaconURL,
@@ -57,8 +57,8 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight }) =
     if (error) return <div> 에러가 발생했습니다-BeaconLayout {error}</div>;
     if (!data) return <div> 반환값 없음-BeaconLayout</div>;
 
-    const realBeaconInfo2 = Object.values(data).reduce(
-        (obj, d, idx) =>
+    const realBeaconInfo = Object.values(data).reduce(
+        (obj, d) =>
             deepmerge(
                 obj,
                 Object.values(d.input || {}).reduce(
@@ -75,26 +75,13 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight }) =
         {}
     );
 
-    const realBeaconInfo = Object.values(data).reduce(
-        (obj, d) => ({
-            ...obj,
-            ...Object.values(d.input || {}).reduce(
-                (obj2, d2) => ({
-                    ...obj2,
-                    [d2.ibeaconMinor]: { ...d2 }
-                }),
-                {}
-            )
-        }),
-        {}
-    );
-
     console.log(realBeaconInfo);
-    console.log(realBeaconInfo2);
+    // console.log(data);
 
-    const allBeaconKeys = Object.keys(allBeaconInfo);
-    const keys = Object.keys(realBeaconInfo).filter(key => !allBeaconKeys.includes(key));
+    // const allBeaconKeys = Object.keys(allBeaconInfo);
+    // const keys = Object.keys(realBeaconInfo).filter(key => !allBeaconKeys.includes(key));
     // console.log(keys);
+    console.log(allBeaconInfo);
 
     return (
         <BeaconLayoutDiv>
@@ -102,10 +89,10 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight }) =
                 reload<br></br>beacon API
             </ReloadBtn>
 
-            <RestBeaconTemplate restKeys={keys} />
+            {/* <RestBeaconTemplate restKeys={keys} /> */}
 
-            {Object.keys(allBeaconInfo).map(beaconName => {
-                const current = realBeaconInfo[beaconName];
+            {Object.values(allBeaconInfo).map((beacon, idx) => {
+                const current = realBeaconInfo[beacon.major][beacon.minor];
                 const isActive = current ? true : false;
 
                 const message = isActive
@@ -124,12 +111,12 @@ battery: ${current.battery}`
 
                 return (
                     <Beacon
-                        key={beaconName}
-                        top={allBeaconInfo[beaconName].top * heightRatio - beaconSize / 2}
-                        left={allBeaconInfo[beaconName].left * heightRatio - beaconSize / 2}
+                        key={idx}
+                        top={beacon.top * heightRatio - beaconSize / 2}
+                        left={beacon.left * heightRatio - beaconSize / 2}
                         beaconSize={beaconSize}
                         isActive={isActive}
-                        onClick={() => alert('#' + beaconName + message)}
+                        onClick={() => alert(`# ${beacon.major}-${beacon.minor}${message}`)}
                     ></Beacon>
                 );
             })}
