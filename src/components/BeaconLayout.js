@@ -62,7 +62,10 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight }) =
             ...Object.values(d.input || {}).reduce(
                 (obj2, d2) => ({
                     ...obj2,
-                    [d2.ibeaconMinor]: { ...d2 }
+                    [d2.ibeaconMajor]: {
+                        ...obj2[d2.ibeaconMajor],
+                        ...{ [d2.ibeaconMinor]: { ...d2 } }
+                    }
                 }),
                 {}
             )
@@ -70,7 +73,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight }) =
         {}
     );
 
-    // console.log(allBeaconInfo);
+    console.log(allBeaconInfo);
     console.log(realBeaconInfo);
 
     const allBeaconKeys = Object.keys(allBeaconInfo);
