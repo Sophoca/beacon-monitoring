@@ -108,6 +108,15 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
     console.log(allBeaconKeys);
     // const keys = Object.keys(realBeaconInfo).filter(key => !allBeaconKeys.includes(key));
     // console.log(keys);
+    // reduce 써서 어찌저찌
+    // const keys = Object.keys(realBeaconInfo).reduce(
+    //     (obj, d) =>
+    //         deepmerge(
+    //             obj,
+    //             Object.keys(d).filter(key => !allBeaconKeys[d].includes(key))
+    //         ),
+    //     {}
+    // );
 
     return (
         <BeaconLayoutDiv>
