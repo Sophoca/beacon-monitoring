@@ -17,7 +17,7 @@ function Status({ match, location: { state } }) {
     const { data, error, isLoading } = useAsync({
         promiseFn: getLists,
         URL: parkingLotURL,
-        watch: location
+        watch: parkingLotURL
     });
 
     if (isLoading) return <div>로딩중-Status</div>;
@@ -26,7 +26,8 @@ function Status({ match, location: { state } }) {
 
     const imageUrl = data.mapInfo.imageUrl[detail];
     const configSlot = data.mapInfo.configSlot[detail];
-    const allBeaconInfo = data.mapInfo.allBeaconInfo ? data.mapInfo.allBeaconInfo[detail] : null;
+    const allBeaconInfo = data.mapInfo.allBeaconInfo[detail] ? data.mapInfo.allBeaconInfo : null;
+
     return (
         <div
             className="Status"

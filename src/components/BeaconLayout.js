@@ -44,18 +44,33 @@ const ReloadBtn = styled.button`
     top: 40px;
 `;
 
-const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight }) => {
+const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, detail }) => {
     const heightRatio = imgHeight / configSlot.parkingLotSize.height;
     const beaconSize = 12;
     const { data, error, isLoading, reload } = useAsync({
         promiseFn: getLists,
         URL: realBeaconURL,
-        watch: allBeaconInfo
+        watch: realBeaconURL
     });
 
-    if (isLoading) return <div> 로딩중-BeaconLayout</div>;
-    if (error) return <div> 에러가 발생했습니다-BeaconLayout {error}</div>;
-    if (!data) return <div> 반환값 없음-BeaconLayout</div>;
+    if (isLoading)
+        return (
+            <BeaconLayoutDiv style={{ left: '40px', top: '40px' }}>
+                로딩중-BeaconLayout
+            </BeaconLayoutDiv>
+        );
+    if (error)
+        return (
+            <BeaconLayoutDiv style={{ left: '40px', top: '40px' }}>
+                에러가 발생했습니다-BeaconLayout {error}
+            </BeaconLayoutDiv>
+        );
+    if (!data)
+        return (
+            <BeaconLayoutDiv style={{ left: '40px', top: '40px' }}>
+                반환값 없음-BeaconLayout
+            </BeaconLayoutDiv>
+        );
 
     const realBeaconInfo = Object.values(data).reduce(
         (obj, d) =>
@@ -75,13 +90,22 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight }) =
         {}
     );
 
-    console.log(realBeaconInfo);
-    // console.log(data);
+    console.log(allBeaconInfo);
 
-    // const allBeaconKeys = Object.keys(allBeaconInfo);
+    const allBeaconKeys = Object.values(allBeaconInfo).reduce(
+        (obj, d) =>
+            deepmerge(
+                obj,
+                Object.values(d).reduce(
+                    (obj2, d2) => deepmerge(obj2, { [d2.major]: [d2.minor] }),
+                    {}
+                )
+            ),
+        {}
+    );
+    console.log(allBeaconKeys);
     // const keys = Object.keys(realBeaconInfo).filter(key => !allBeaconKeys.includes(key));
     // console.log(keys);
-    console.log(allBeaconInfo);
 
     return (
         <BeaconLayoutDiv>
@@ -91,7 +115,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight }) =
 
             {/* <RestBeaconTemplate restKeys={keys} /> */}
 
-            {Object.values(allBeaconInfo).map((beacon, idx) => {
+            {Object.values(allBeaconInfo[detail]).map((beacon, idx) => {
                 const current = realBeaconInfo[beacon.major][beacon.minor];
                 const isActive = current ? true : false;
 

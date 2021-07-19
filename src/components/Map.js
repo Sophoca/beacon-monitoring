@@ -24,6 +24,7 @@ const Map = ({ location, detail, imageUrl, allBeaconInfo, configSlot, realBeacon
                     realBeaconURL={realBeaconURL}
                     configSlot={configSlot}
                     imgHeight={imgHeight}
+                    detail={detail}
                 />
             )}
         </div>
