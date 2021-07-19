@@ -103,6 +103,8 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
             ),
         {}
     );
+
+    console.log(realBeaconInfo);
     console.log(allBeaconKeys);
     // const keys = Object.keys(realBeaconInfo).filter(key => !allBeaconKeys.includes(key));
     // console.log(keys);
