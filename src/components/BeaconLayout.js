@@ -104,8 +104,21 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
         {}
     );
 
-    console.log(realBeaconInfo);
-    console.log(allBeaconKeys);
+    const restKeys = Object.keys(realBeaconInfo).reduce(
+        (obj, d) => ({
+            ...obj,
+            [d]: Object.keys(realBeaconInfo[d])
+                .map(i => Number(i))
+                .filter(key =>
+                    allBeaconKeys[d] ? !allBeaconKeys[d].includes(key) : realBeaconInfo[d]
+                )
+        }),
+        {}
+    );
+
+    console.log('allBeacon', allBeaconKeys);
+    console.log('realBeacon', realBeaconInfo);
+    console.log('restKeys', restKeys);
     // const keys = Object.keys(realBeaconInfo).filter(key => !allBeaconKeys.includes(key));
     // console.log(keys);
     // reduce 써서 어찌저찌
@@ -124,7 +137,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
                 reload<br></br>beacon API
             </ReloadBtn>
 
-            {/* <RestBeaconTemplate restKeys={keys} /> */}
+            <RestBeaconTemplate restKeys={restKeys} />
 
             {Object.values(allBeaconInfo[detail]).map((beacon, idx) => {
                 const current = realBeaconInfo[beacon.major][beacon.minor];

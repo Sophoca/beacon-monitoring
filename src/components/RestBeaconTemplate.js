@@ -6,9 +6,11 @@ const RestBeaconTemplate = ({ restKeys }) => {
     return (
         <div className="todo-list-template">
             <div className="title">Rest Beacon</div>
-            {restKeys.map((restKey, idx) => (
-                <RestBeacon key={idx} restKey={restKey}></RestBeacon>
-            ))}
+            {Object.keys(restKeys).map(restKeysIdx =>
+                restKeys[restKeysIdx].map(restKey => (
+                    <RestBeacon key={restKey} restKey={`${restKeysIdx}-${restKey}`}></RestBeacon>
+                ))
+            )}
         </div>
     );
 };
