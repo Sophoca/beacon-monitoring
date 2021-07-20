@@ -81,7 +81,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
                         ...obj2,
                         [d2.ibeaconMajor]: {
                             ...obj2[d2.ibeaconMajor],
-                            [d2.ibeaconMinor]: { ...d2 }
+                            [d2.ibeaconMinor]: { ...d2, gatewayMac: { [d.gateway.mac]: 0 } }
                         }
                     }),
                     {}
@@ -116,35 +116,9 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
         {}
     );
 
-    console.log('allBeacon', allBeaconKeys);
-    console.log('realBeacon', realBeaconInfo);
-    console.log('restKeys', restKeys);
-    // const keys = Object.keys(realBeaconInfo).filter(key => !allBeaconKeys.includes(key));
-    // console.log(keys);
-    // reduce 써서 어찌저찌
-    // const keys = Object.keys(realBeaconInfo).reduce(
-    //     (obj, d) =>
-    //         deepmerge(
-    //             obj,
-    //             Object.keys(d).filter(key => !allBeaconKeys[d].includes(key))
-    //         ),
-    //     {}
-    // );
-
-    return (
-        <BeaconLayoutDiv>
-            <ReloadBtn onClick={reload}>
-                reload<br></br>beacon API
-            </ReloadBtn>
-
-            <RestBeaconTemplate restKeys={restKeys} />
-
-            {Object.values(allBeaconInfo[detail]).map((beacon, idx) => {
-                const current = realBeaconInfo[beacon.major][beacon.minor];
-                const isActive = current ? true : false;
-
-                const message = isActive
-                    ? `
+    function GetMessage(major, minor) {
+        const current = realBeaconInfo[major][minor];
+        const msg = `
 timestamp: ${current.timestamp}
 type: ${current.type}
 mac: ${current.mac}
@@ -154,8 +128,36 @@ ibeaconMajor: ${current.ibeaconMajor}
 ibeaconMinor: ${current.ibeaconMinor}
 rssi: ${current.rssi}
 ibeaconTxPower: ${current.ibeaconTxPower}
-battery: ${current.battery}`
-                    : '\nno signal';
+battery: ${current.battery}`;
+        return msg;
+    }
+
+    function ShowGatewayMac(major, minor) {
+        const defaultMsg = GetMessage(major, minor);
+        const gatewayMac = Object.keys(realBeaconInfo[major][minor].gatewayMac).toString();
+        const msg = `# ${major}-${minor}
+gateway mac: ${gatewayMac}
+${defaultMsg}
+`;
+        return msg;
+    }
+
+    console.log('allBeacon', allBeaconKeys);
+    console.log('realBeacon', realBeaconInfo);
+    console.log('restKeys', restKeys);
+
+    return (
+        <BeaconLayoutDiv>
+            <ReloadBtn onClick={reload}>
+                reload<br></br>beacon API
+            </ReloadBtn>
+
+            <RestBeaconTemplate restKeys={restKeys} ShowGatewayMac={ShowGatewayMac} />
+
+            {Object.values(allBeaconInfo[detail]).map((beacon, idx) => {
+                const current = realBeaconInfo[beacon.major][beacon.minor];
+                const isActive = current ? true : false;
+                const message = isActive ? GetMessage(beacon.major, beacon.minor) : '\nno signal';
 
                 return (
                     <Beacon
