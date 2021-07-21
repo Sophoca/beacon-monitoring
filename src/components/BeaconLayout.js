@@ -105,9 +105,9 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
     const restKeys = Object.keys(realBeaconInfo).reduce(
         (obj, d) => ({
             ...obj,
-            [d]: Object.keys(realBeaconInfo[d])
-                .map(i => Number(i))
-                .filter(key => (allBeaconKeys[d] ? !allBeaconKeys[d].includes(key) : !null))
+            [d]: Object.keys(realBeaconInfo[d]).filter(key =>
+                allBeaconKeys[d] ? !allBeaconKeys[d].includes(Number(key)) : !null
+            )
         }),
         {}
     );

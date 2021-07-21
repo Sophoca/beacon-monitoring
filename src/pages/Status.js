@@ -14,7 +14,7 @@ function Status({ match, location: { state } }) {
     const { location, floor } = match.params;
     const detail = floor || state.imageSource;
 
-    console.log('Status', location, detail, parkingLotURL, realBeaconURL);
+    // console.log('Status', location, detail, parkingLotURL, realBeaconURL);
 
     const { data, error, isLoading } = useAsync({
         promiseFn: getLists,
