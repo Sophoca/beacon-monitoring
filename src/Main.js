@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { Overview, Status } from './pages';
 
 class Main extends Component {
@@ -19,10 +19,12 @@ class Main extends Component {
                 >
                     reload<br></br>main API
                 </button>
-                <Route exact path="/" component={Overview} />
+
                 <Switch>
+                    <Route exact path="/" component={Overview} />
                     <Route path="/:location/:floor" component={Status} />
                     <Route path="/:location" component={Status} />
+                    <Redirect path="*" to="/" />
                 </Switch>
             </>
         );

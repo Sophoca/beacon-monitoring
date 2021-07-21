@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
     ProSidebar,
     Menu,
@@ -14,6 +14,8 @@ import logo from './logo.png';
 import { FcDoughnutChart } from 'react-icons/fc';
 
 const Aside = ({ lists }) => {
+    const pathName = useLocation().pathname;
+    console.log(pathName);
     return (
         <ProSidebar>
             <SidebarHeader>
@@ -33,6 +35,7 @@ const Aside = ({ lists }) => {
                         className="MenuItem"
                         icon={<FcDoughnutChart size="100%" />}
                         suffix={false}
+                        active={'/' === pathName}
                     >
                         Overview
                         <Link to="/" />
@@ -55,12 +58,17 @@ const Aside = ({ lists }) => {
                             >
                                 {list.sectionList.map(obj => {
                                     const key = Object.keys(obj);
+                                    const currentPathName = `/${list.key}/${key}`;
                                     return (
-                                        <MenuItem className="MenuItem" key={key}>
+                                        <MenuItem
+                                            className="MenuItem"
+                                            key={key}
+                                            active={pathName === currentPathName}
+                                        >
                                             {obj[key].displayName}
                                             <Link
                                                 to={{
-                                                    pathname: `/${list.key}/${key}`,
+                                                    pathname: currentPathName,
                                                     state: {
                                                         serverURL: list.serverURL,
                                                         parkingLotInfoURL: list.parkingLotInfo,
@@ -83,6 +91,7 @@ const Aside = ({ lists }) => {
                                         width="100%"
                                     />
                                 }
+                                active={`/${list.key}` === pathName}
                             >
                                 {list.title}
                                 <Link

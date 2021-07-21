@@ -23,6 +23,9 @@ function Layout() {
     if (isLoading) return <div>로딩중-Layout</div>;
     if (error) return <div>에러가 발생했습니다-Layout {console.error(error)}</div>;
     if (!data) return <div>반환값 없음-Layout</div>;
+
+    console.log('layout', data.lists);
+
     return (
         <div className="layout">
             <BrowserRouter>

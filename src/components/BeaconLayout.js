@@ -90,8 +90,6 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
         {}
     );
 
-    console.log(allBeaconInfo);
-
     const allBeaconKeys = Object.values(allBeaconInfo).reduce(
         (obj, d) =>
             deepmerge(
@@ -109,9 +107,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
             ...obj,
             [d]: Object.keys(realBeaconInfo[d])
                 .map(i => Number(i))
-                .filter(key =>
-                    allBeaconKeys[d] ? !allBeaconKeys[d].includes(key) : realBeaconInfo[d]
-                )
+                .filter(key => (allBeaconKeys[d] ? !allBeaconKeys[d].includes(key) : !null))
         }),
         {}
     );
@@ -142,9 +138,9 @@ ${defaultMsg}
         return msg;
     }
 
-    console.log('allBeacon', allBeaconKeys);
-    console.log('realBeacon', realBeaconInfo);
-    console.log('restKeys', restKeys);
+    // console.log('allBeacon', allBeaconKeys);
+    // console.log('realBeacon', realBeaconInfo);
+    // console.log('restKeys', restKeys);
 
     return (
         <BeaconLayoutDiv>
