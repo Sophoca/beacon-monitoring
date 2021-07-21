@@ -4,25 +4,26 @@ import { useAsync } from 'react-async';
 import deepmerge from 'deepmerge';
 import styled from 'styled-components';
 import RestBeaconTemplate from './RestBeaconTemplate';
+import Beacon from './Beacon';
 
 async function getLists({ URL }) {
     const response = await axios.get(URL);
     return response.data;
 }
 
-const Beacon = styled.div.attrs(props => ({
-    style: {
-        top: props.top,
-        left: props.left,
-        width: props.beaconSize,
-        height: props.beaconSize,
-        background: props.isActive ? 'green' : 'red'
-    }
-}))`
-    position: absolute;
-    border-radius: 50%;
-    z-index: 10;
-`;
+// const Beacon = styled.div.attrs(props => ({
+//     style: {
+//         top: props.top,
+//         left: props.left,
+//         width: props.beaconSize,
+//         height: props.beaconSize,
+//         background: props.isActive ? 'green' : 'red'
+//     }
+// }))`
+//     position: absolute;
+//     border-radius: 50%;
+//     z-index: 10;
+// `;
 
 const BeaconLayoutDiv = styled.div`
     position: absolute;
@@ -162,6 +163,9 @@ ${defaultMsg}
                         left={beacon.left * heightRatio - beaconSize / 2}
                         beaconSize={beaconSize}
                         isActive={isActive}
+                        major={beacon.major}
+                        minor={beacon.minor}
+                        message={message}
                         onClick={() => alert(`# ${beacon.major}-${beacon.minor}${message}`)}
                     ></Beacon>
                 );

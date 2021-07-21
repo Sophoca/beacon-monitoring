@@ -1,0 +1,94 @@
+.modal {
+    position: fixed;
+    z-index: 200;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.65);
+    text-align: initial;
+    color: #4a4d50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-container {
+    width: 100%;
+    min-width: 490px;
+    max-width: 710px;
+    animation-duration: 0.5s;
+    position: relative;
+}
+.modal-container > .card {
+    border-radius: 3px;
+    padding: 20px;
+    background-color: white;
+}
+.modal-container > .card > .overflow-auto {
+    max-height: 53vh;
+}
+.modal-container * {
+    word-break: keep-all;
+}
+.modal-content-xs {
+    width: 490px;
+}
+.modal-content {
+    overflow: auto;
+    padding: 20px 0;
+}
+.modal-content.modal-content-no-padding {
+    padding: 0;
+}
+.modal-slide {
+    min-width: 490px;
+    max-width: 710px;
+    animation-duration: 0.5s;
+    position: absolute;
+    right: 0;
+}
+.modal-head {
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 0 20px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.modal-head h3 {
+    word-break: keep-all;
+}
+.modal-action {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 20px 20px 0;
+    box-sizing: border-box;
+    text-align: right;
+}
+.modal-close-btn {
+    position: absolute;
+    right: -30px;
+    top: 0px;
+}
+.modal-close-btn i {
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    font-size: 24px;
+    transition: color 0.2s;
+    vertical-align: top;
+    padding-left: 10px;
+}
+.modal-close-btn i:hover {
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+}
+.modal-layout-scroll {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
