@@ -166,7 +166,6 @@ ${defaultMsg}
                         major={beacon.major}
                         minor={beacon.minor}
                         message={message}
-                        onClick={() => alert(`# ${beacon.major}-${beacon.minor}${message}`)}
                     ></Beacon>
                 );
             })}

@@ -24,14 +24,19 @@ const Beacon = props => {
     const closeModal = () => {
         setModalOpen(false);
     };
-    console.log(props);
 
     const content = (
-        <>
-            <h2>Beacon Status</h2>
-            <h3> {`major: ${props.major}  minor: ${props.minor}`}</h3>
-            <div>{props.message}</div>
-        </>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <h2 style={{ margin: '0' }}>Beacon Status</h2>
+                <h3 style={{ margin: '10' }}>
+                    {' '}
+                    {`major: ${props.major}  | minor: ${props.minor}`}
+                </h3>
+            </div>
+
+            <pre>{props.message}</pre>
+        </div>
     );
     return (
         <>
