@@ -6,7 +6,13 @@ const StyledH3 = styled.h3`
 `;
 
 const BeaconContent = ({ major, minor, beaconSize, isActive, message, isAbnormal }) => (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div
+        style={{
+            display: 'flex',
+            alignItems: 'center',
+            width: 100 + '%'
+        }}
+    >
         <div
             style={{
                 display: 'flex',

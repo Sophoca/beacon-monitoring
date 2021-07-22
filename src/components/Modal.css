@@ -28,9 +28,10 @@
     background-color: white;
 }
 .modal-container > .card > .overflow-auto {
-    min-height: 20vh;
     max-height: 53vh;
-    align-items: stretch;
+    min-height: 20vh;
+    display: flex;
+    align-items: center;
 }
 .modal-container * {
     word-break: keep-all;
