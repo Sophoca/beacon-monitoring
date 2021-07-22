@@ -1,22 +1,9 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import Modal from './Modal';
+import BeaconDiv from './BeaconDiv';
+import BeaconContent from './BeaconContent';
 
-const BeaconDiv = styled.div.attrs(props => ({
-    style: {
-        top: props.top,
-        left: props.left,
-        width: props.beaconSize,
-        height: props.beaconSize,
-        background: props.isActive ? 'green' : 'red'
-    }
-}))`
-    position: absolute;
-    border-radius: 50%;
-    z-index: 10;
-`;
-
-const Beacon = props => {
+const Beacon = ({ top, left, beaconSize, isActive, major, minor, message }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => {
         setModalOpen(true);
@@ -25,30 +12,29 @@ const Beacon = props => {
         setModalOpen(false);
     };
 
-    const content = (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <h2 style={{ margin: '0' }}>Beacon Status</h2>
-                <h3 style={{ margin: '10' }}>
-                    {' '}
-                    {`major: ${props.major}  | minor: ${props.minor}`}
-                </h3>
-            </div>
-
-            <pre>{props.message}</pre>
-        </div>
-    );
     return (
         <>
             <BeaconDiv
-                top={props.top}
-                left={props.left}
-                beaconSize={props.beaconSize}
-                isActive={props.isActive}
+                top={top}
+                left={left}
+                beaconSize={beaconSize}
+                isActive={isActive}
                 onClick={openModal}
             />
             {modalOpen && (
-                <Modal className={props.minor} children={content} onClickClose={closeModal}></Modal>
+                <Modal
+                    className={minor}
+                    children={
+                        <BeaconContent
+                            major={major}
+                            minor={minor}
+                            beaconSize={beaconSize}
+                            isActive={isActive}
+                            message={message}
+                        ></BeaconContent>
+                    }
+                    onClickClose={closeModal}
+                ></Modal>
             )}
         </>
     );
