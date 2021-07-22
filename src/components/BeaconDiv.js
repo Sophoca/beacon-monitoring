@@ -8,7 +8,7 @@ const BeaconDiv = styled.div.attrs(props => ({
         height: props.beaconSize,
         minWidth: props.beaconSize,
         minHeight: props.beaconSize,
-        background: props.isActive ? 'green' : 'red'
+        background: props.isAbnormal ? 'orange' : props.isActive ? 'green' : 'red'
     }
 }))`
     position: absolute;

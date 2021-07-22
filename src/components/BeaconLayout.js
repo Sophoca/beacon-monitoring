@@ -31,6 +31,11 @@ const ReloadBtn = styled.button`
     top: 40px;
 `;
 
+const StyledP = styled.p`
+    margin: 0;
+    width: 100%;
+`;
+
 const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, detail }) => {
     const heightRatio = imgHeight / configSlot.parkingLotSize.height;
     const beaconSize = 12;
@@ -101,27 +106,32 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
 
     function GetMessage(major, minor) {
         const current = realBeaconInfo[major][minor];
-        const msg = `
-timestamp: ${current.timestamp}
-type: ${current.type}
-mac: ${current.mac}
-bleName: ${current.bleName}
-ibeaconUuid: ${current.ibeaconUuid}
-ibeaconMajor: ${current.ibeaconMajor}
-ibeaconMinor: ${current.ibeaconMinor}
-rssi: ${current.rssi}
-ibeaconTxPower: ${current.ibeaconTxPower}
-battery: ${current.battery}`;
+        const msg = (
+            <>
+                <StyledP>{`timestamp: ${current.timestamp}`}</StyledP>
+                <StyledP>{`type: ${current.type}`}</StyledP>
+                <StyledP>{`mac: ${current.mac}`}</StyledP>
+                <StyledP>{`bleName: ${current.bleName}`}</StyledP>
+                <StyledP>{`ibeaconUuid: ${current.ibeaconUuid}`}</StyledP>
+                <StyledP>{`ibeaconMajor: ${current.ibeaconMajor}`}</StyledP>
+                <StyledP>{`ibeaconMinor: ${current.ibeaconMinor}`}</StyledP>
+                <StyledP>{`rssi: ${current.rssi}`}</StyledP>
+                <StyledP>{`ibeaconTxPower: ${current.ibeaconTxPower}`}</StyledP>
+                <StyledP>{`battery: ${current.battery}`}</StyledP>
+            </>
+        );
         return msg;
     }
 
     function ShowGatewayMac(major, minor) {
         const defaultMsg = GetMessage(major, minor);
-        const gatewayMac = Object.keys(realBeaconInfo[major][minor].gatewayMac).toString();
-        const msg = `# ${major}-${minor}
-gateway mac: ${gatewayMac}
-${defaultMsg}
-`;
+        const gatewayMac = Object.keys(realBeaconInfo[major][minor].gatewayMac).join(', ');
+        const msg = (
+            <>
+                <StyledP>{`gateway mac: ${gatewayMac}`}</StyledP>
+                {defaultMsg}
+            </>
+        );
         return msg;
     }
 
@@ -135,13 +145,17 @@ ${defaultMsg}
                 reload<br></br>beacon API
             </ReloadBtn>
 
-            <RestBeaconTemplate restKeys={restKeys} ShowGatewayMac={ShowGatewayMac} />
+            <RestBeaconTemplate
+                restKeys={restKeys}
+                beaconSize={beaconSize}
+                ShowGatewayMac={ShowGatewayMac}
+            />
 
             {Object.values(allBeaconInfo[detail]).map((beacon, idx) => {
                 const current = realBeaconInfo[beacon.major][beacon.minor];
                 const isActive = current ? true : false;
-                const message = isActive ? GetMessage(beacon.major, beacon.minor) : '\nno signal';
-
+                const message = isActive ? GetMessage(beacon.major, beacon.minor) : 'no signal';
+                // battery 상태 isAbnormal로 넘겨주는거 고민
                 return (
                     <Beacon
                         key={idx}

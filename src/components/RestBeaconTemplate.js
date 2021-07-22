@@ -2,7 +2,7 @@ import React from 'react';
 import './TodoListTemplate.css';
 import RestBeacon from './RestBeacon';
 
-const RestBeaconTemplate = ({ restKeys, ShowGatewayMac }) => {
+const RestBeaconTemplate = ({ restKeys, beaconSize, ShowGatewayMac }) => {
     return (
         <div className="todo-list-template">
             <div className="title">Rest Beacon</div>
@@ -12,7 +12,9 @@ const RestBeaconTemplate = ({ restKeys, ShowGatewayMac }) => {
                     return (
                         <RestBeacon
                             key={restKey}
-                            restKey={`${restKeysIdx}-${restKey}`}
+                            major={restKeysIdx}
+                            minor={restKey}
+                            beaconSize={beaconSize}
                             msg={msg}
                         ></RestBeacon>
                     );

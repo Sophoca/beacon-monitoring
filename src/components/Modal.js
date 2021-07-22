@@ -53,7 +53,7 @@ const Modal = ({ onClickClose, className, children, isLayoutScrollEnabled }) => 
                 </div>
 
                 <button className="modal-close-btn" type="button" onClick={onClickClose}>
-                    <i className="material-icons">close</i>
+                    <i className="material-icons">X</i>
                 </button>
             </div>
         </div>,

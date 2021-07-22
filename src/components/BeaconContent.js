@@ -1,13 +1,18 @@
+import styled from 'styled-components';
 import BeaconDiv from './BeaconDiv';
 
-const BeaconContent = ({ major, minor, beaconSize, isActive, message }) => (
+const StyledH3 = styled.h3`
+    margin: 3px;
+`;
+
+const BeaconContent = ({ major, minor, beaconSize, isActive, message, isAbnormal }) => (
     <div style={{ display: 'flex', alignItems: 'center' }}>
         <div
             style={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                width: 40 + '%'
+                minWidth: 35 + '%'
             }}
         >
             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -17,13 +22,22 @@ const BeaconContent = ({ major, minor, beaconSize, isActive, message }) => (
                     left={0}
                     beaconSize={beaconSize}
                     isActive={isActive}
+                    isAbnormal={isAbnormal}
                     style={{ position: 'relative' }}
                 ></BeaconDiv>
             </div>
-            <h3>{`major: ${major}  | minor: ${minor}`}</h3>
+            <div>
+                <StyledH3>{`major: ${major}`}</StyledH3>
+                <StyledH3>{`minor: ${minor}`}</StyledH3>
+            </div>
         </div>
-        <div style={{ with: 60 + '%', marginLeft: 2 + 'rem', overflow: 'auto' }}>
-            <pre>{message}</pre>
+        <div
+            style={{
+                width: 60 + '%',
+                marginLeft: 2 + 'rem'
+            }}
+        >
+            {message}
         </div>
     </div>
 );

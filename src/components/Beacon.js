@@ -19,17 +19,18 @@ const Beacon = ({ top, left, beaconSize, isActive, major, minor, message }) => {
                 left={left}
                 beaconSize={beaconSize}
                 isActive={isActive}
+                isAbnormal={false}
                 onClick={openModal}
             />
             {modalOpen && (
                 <Modal
-                    className={minor}
                     children={
                         <BeaconContent
                             major={major}
                             minor={minor}
                             beaconSize={beaconSize}
                             isActive={isActive}
+                            isAbnormal={false}
                             message={message}
                         ></BeaconContent>
                     }
