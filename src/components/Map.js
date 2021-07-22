@@ -11,8 +11,6 @@ const Map = ({ location, detail, imageUrl, allBeaconInfo, configSlot, realBeacon
             className="Map"
             style={{
                 position: 'absolute',
-                top: '0px',
-                left: '100px',
                 zIndex: '-3',
                 overflow: 'scroll'
             }}

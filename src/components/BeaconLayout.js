@@ -32,7 +32,7 @@ const ReloadBtn = styled.button`
 `;
 
 const StyledP = styled.p`
-    margin: 0;
+    margin: 6px;
     width: 100%;
 `;
 
