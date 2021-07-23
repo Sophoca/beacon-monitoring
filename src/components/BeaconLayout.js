@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useAsync } from 'react-async';
 import deepmerge from 'deepmerge';
 import styled from 'styled-components';
 import RestBeaconTemplate from './RestBeaconTemplate';
 import Beacon from './Beacon';
+import ParkingSpotDiv from './ParkingSpotDiv';
 
 async function getLists({ URL }) {
     const response = await axios.get(URL);
@@ -39,6 +40,14 @@ const StyledP = styled.p`
 const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, detail }) => {
     const heightRatio = imgHeight / configSlot.parkingLotSize.height;
     const beaconSize = 12;
+
+    //----------------------------------------------------------------
+    const [parkingSpace, setParkingSpace] = useState(false);
+    const toggleParkingSpace = () => {
+        setParkingSpace(!parkingSpace);
+    };
+    //----------------------------------------------------------------
+
     const { data, error, isLoading, reload } = useAsync({
         promiseFn: getLists,
         URL: realBeaconURL,
@@ -135,40 +144,77 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
         return msg;
     }
 
-    // console.log('allBeacon', allBeaconKeys);
-    // console.log('realBeacon', realBeaconInfo);
-    // console.log('restKeys', restKeys);
+    //----------------------------------------------
+    console.log(configSlot);
+    //----------------------------------------------
 
     return (
         <BeaconLayoutDiv>
-            <ReloadBtn onClick={reload}>
+            <ReloadBtn className="beacon-reload-btn" onClick={reload}>
                 reload<br></br>beacon API
             </ReloadBtn>
+
+            {/*  */}
+            <ReloadBtn
+                className="parking-spot-toggle-btn"
+                onClick={toggleParkingSpace}
+                style={{ left: 370 }}
+            >
+                parkingSpace{console.log(parkingSpace)}
+            </ReloadBtn>
+            {parkingSpace && (
+                <div className="parking-spots">
+                    {Object.keys(configSlot.parkingSpotPosition).map(spotKey => {
+                        const top = configSlot.parkingSpotPosition[spotKey].top;
+                        const left = configSlot.parkingSpotPosition[spotKey].left;
+                        const size = configSlot.parkingSpotSize;
+                        const msg = `# ${spotKey}
+
+[${top}, ${left}] [${top}, ${left + size.width}]
+[${top + size.height}, ${left}] [${top + size.height}, ${left + size.width}]
+`;
+                        return (
+                            <ParkingSpotDiv
+                                key={spotKey}
+                                className={spotKey}
+                                top={top}
+                                left={left}
+                                size={size}
+                                heightRatio={heightRatio}
+                                onClick={() => alert(msg)}
+                            />
+                        );
+                    })}
+                </div>
+            )}
+
+            {/*  */}
 
             <RestBeaconTemplate
                 restKeys={restKeys}
                 beaconSize={beaconSize}
                 ShowGatewayMac={ShowGatewayMac}
             />
-
-            {Object.values(allBeaconInfo[detail]).map((beacon, idx) => {
-                const current = realBeaconInfo[beacon.major][beacon.minor];
-                const isActive = current ? true : false;
-                const message = isActive ? GetMessage(beacon.major, beacon.minor) : 'no signal';
-                // battery 상태 isAbnormal로 넘겨주는거 고민
-                return (
-                    <Beacon
-                        key={idx}
-                        top={beacon.top * heightRatio - beaconSize / 2}
-                        left={beacon.left * heightRatio - beaconSize / 2}
-                        beaconSize={beaconSize}
-                        isActive={isActive}
-                        major={beacon.major}
-                        minor={beacon.minor}
-                        message={message}
-                    ></Beacon>
-                );
-            })}
+            <div className="beacons">
+                {Object.values(allBeaconInfo[detail]).map((beacon, idx) => {
+                    const current = realBeaconInfo[beacon.major][beacon.minor];
+                    const isActive = current ? true : false;
+                    const message = isActive ? GetMessage(beacon.major, beacon.minor) : 'no signal';
+                    // battery 상태 isAbnormal로 넘겨주는거 고민
+                    return (
+                        <Beacon
+                            key={idx}
+                            top={beacon.top * heightRatio - beaconSize / 2}
+                            left={beacon.left * heightRatio - beaconSize / 2}
+                            beaconSize={beaconSize}
+                            isActive={isActive}
+                            major={beacon.major}
+                            minor={beacon.minor}
+                            message={message}
+                        ></Beacon>
+                    );
+                })}
+            </div>
         </BeaconLayoutDiv>
     );
 };
