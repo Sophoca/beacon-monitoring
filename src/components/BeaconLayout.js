@@ -37,6 +37,14 @@ const StyledP = styled.p`
     width: 100%;
 `;
 
+const StyledDiv = styled.div`
+    display: flex;
+    width: 100vh;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+`;
+
 const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, detail }) => {
     const heightRatio = imgHeight / configSlot.parkingLotSize.height;
     const beaconSize = 12;
@@ -56,20 +64,26 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
 
     if (isLoading)
         return (
-            <BeaconLayoutDiv style={{ left: '40px', top: '40px' }}>
-                로딩중-BeaconLayout
+            <BeaconLayoutDiv>
+                <StyledDiv>
+                    <p>로딩중-BeaconLayout</p>
+                </StyledDiv>
             </BeaconLayoutDiv>
         );
     if (error)
         return (
-            <BeaconLayoutDiv style={{ left: '40px', top: '40px' }}>
-                에러가 발생했습니다-BeaconLayout {error}
+            <BeaconLayoutDiv>
+                <StyledDiv>
+                    <p>에러가 발생했습니다-BeaconLayout {error}</p>
+                </StyledDiv>
             </BeaconLayoutDiv>
         );
     if (!data)
         return (
-            <BeaconLayoutDiv style={{ left: '40px', top: '40px' }}>
-                반환값 없음-BeaconLayout
+            <BeaconLayoutDiv>
+                <StyledDiv>
+                    <p>반환값 없음-BeaconLayout</p>
+                </StyledDiv>
             </BeaconLayoutDiv>
         );
 
@@ -151,7 +165,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
     return (
         <BeaconLayoutDiv>
             <ReloadBtn className="beacon-reload-btn" onClick={reload}>
-                reload<br></br>beacon API
+                Beacon API
             </ReloadBtn>
 
             {/*  */}
@@ -160,18 +174,19 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
                 onClick={toggleParkingSpace}
                 style={{ left: 370 }}
             >
-                parkingSpace{console.log(parkingSpace)}
+                Parking Space{console.log(parkingSpace)}
             </ReloadBtn>
             {parkingSpace && (
                 <div className="parking-spots">
                     {Object.keys(configSlot.parkingSpotPosition).map(spotKey => {
                         const top = configSlot.parkingSpotPosition[spotKey].top;
                         const left = configSlot.parkingSpotPosition[spotKey].left;
+                        const rotate = configSlot.parkingSpotPosition[spotKey].rotate;
                         const size = configSlot.parkingSpotSize;
                         const msg = `# ${spotKey}
 
-[${top}, ${left}] [${top}, ${left + size.width}]
-[${top + size.height}, ${left}] [${top + size.height}, ${left + size.width}]
+[${left}, ${top}] [${left + size.width}, ${top}]
+[${left}, ${top + size.height}] [${left + size.width}, ${top + size.height}]
 `;
                         return (
                             <ParkingSpotDiv
@@ -179,6 +194,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
                                 className={spotKey}
                                 top={top}
                                 left={left}
+                                rotate={rotate}
                                 size={size}
                                 heightRatio={heightRatio}
                                 onClick={() => alert(msg)}

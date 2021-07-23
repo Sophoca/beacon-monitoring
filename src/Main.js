@@ -17,7 +17,7 @@ class Main extends Component {
                     }}
                     onClick={this.props.reload}
                 >
-                    reload<br></br>main API
+                    Main API
                 </button>
 
                 <Switch>
