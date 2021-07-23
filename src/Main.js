@@ -22,7 +22,7 @@ class Main extends Component {
 
                 <Switch>
                     <Route exact path="/" component={Overview} />
-                    <Route path="/:location/:floor" component={Status} />
+                    <Route path="/:location/:floor" render={props => <Status {...props} />} />
                     <Route path="/:location" component={Status} />
                     <Redirect path="*" to="/" />
                 </Switch>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAsync } from 'react-async';
 import Map from '../components/Map';
@@ -16,7 +16,7 @@ function Status({ match, location: { state } }) {
 
     // console.log('Status', location, detail, parkingLotURL, realBeaconURL);
 
-    const { data, error, isLoading } = useAsync({
+    const { data, error, isLoading, reload } = useAsync({
         promiseFn: getLists,
         parkingLotURL,
         watch: parkingLotURL

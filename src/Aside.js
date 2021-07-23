@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
     ProSidebar,
@@ -15,7 +15,8 @@ import { FcDoughnutChart } from 'react-icons/fc';
 
 const Aside = ({ lists }) => {
     const pathName = useLocation().pathname;
-    console.log(pathName);
+    console.log('Aside', lists);
+
     return (
         <ProSidebar>
             <SidebarHeader>
