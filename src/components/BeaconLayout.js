@@ -6,6 +6,9 @@ import styled from 'styled-components';
 import RestBeaconTemplate from './RestBeaconTemplate';
 import Beacon from './Beacon';
 import ParkingSpotDiv from './ParkingSpotDiv';
+import Button from '@material-ui/core/Button';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import DriveEtaIcon from '@material-ui/icons/DriveEta';
 
 async function getLists({ URL }) {
     const response = await axios.get(URL);
@@ -174,18 +177,40 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
 
     return (
         <BeaconLayoutDiv>
-            <ReloadBtn className="beacon-reload-btn" onClick={reload}>
+            <Button
+                variant="contained"
+                color="primary"
+                className="beaconAPI-reload-btn"
+                startIcon={<RefreshIcon />}
+                style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 405 + 'px',
+                    margin: 20 + 'px',
+                    zIndex: 2
+                }}
+                onClick={reload}
+            >
                 Beacon API
-            </ReloadBtn>
+            </Button>
 
             {/*  */}
-            <ReloadBtn
+            <Button
+                variant="contained"
+                color="secondary"
                 className="parking-spot-toggle-btn"
+                startIcon={<DriveEtaIcon />}
+                style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 565 + 'px',
+                    margin: 20 + 'px',
+                    zIndex: 2
+                }}
                 onClick={toggleParkingSpace}
-                style={{ left: 370 }}
             >
-                ParkingSpot
-            </ReloadBtn>
+                Parking Spot
+            </Button>
             {parkingSpace && (
                 <div className="parking-spots">
                     {Object.keys(configSlot.parkingSpotPosition).map(spotKey => {

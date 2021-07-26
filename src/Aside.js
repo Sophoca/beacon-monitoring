@@ -11,7 +11,7 @@ import {
 } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import logo from './logo.png';
-import { FcDoughnutChart } from 'react-icons/fc';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 
 const Aside = ({ lists }) => {
     const pathName = useLocation().pathname;
@@ -34,7 +34,7 @@ const Aside = ({ lists }) => {
                 <Menu iconShape="square">
                     <MenuItem
                         className="MenuItem"
-                        icon={<FcDoughnutChart size="100%" />}
+                        icon={<EqualizerIcon />}
                         suffix={false}
                         active={'/' === pathName}
                     >
@@ -53,7 +53,7 @@ const Aside = ({ lists }) => {
                                     <img
                                         src={list.iconLink}
                                         alt={`${list.title} img`}
-                                        width="100%"
+                                        width="80%"
                                     />
                                 }
                             >
@@ -89,7 +89,7 @@ const Aside = ({ lists }) => {
                                     <img
                                         src={list.iconLink}
                                         alt={`${list.title} img`}
-                                        width="100%"
+                                        width="80%"
                                     />
                                 }
                                 active={`/${list.key}` === pathName}
