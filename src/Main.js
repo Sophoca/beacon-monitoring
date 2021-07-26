@@ -13,7 +13,9 @@ class Main extends Component {
                         width: '100px',
                         height: '40px',
                         position: 'fixed',
-                        zIndex: '15'
+                        zIndex: '15',
+                        top: '90vh',
+                        left: '90vh'
                     }}
                     onClick={this.props.reload}
                 >

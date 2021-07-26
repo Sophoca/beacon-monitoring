@@ -159,7 +159,17 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
     }
 
     //----------------------------------------------
-    console.log(configSlot);
+    const temp = Object.keys(configSlot.parkingSpotPosition).reduce(
+        (obj, d) => ({
+            ...obj,
+            [d]: {
+                top: configSlot.parkingSpotPosition[d].top,
+                left: configSlot.parkingSpotPosition[d].left
+            }
+        }),
+        {}
+    );
+    console.log(temp);
     //----------------------------------------------
 
     return (
@@ -174,7 +184,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
                 onClick={toggleParkingSpace}
                 style={{ left: 370 }}
             >
-                Parking Space{console.log(parkingSpace)}
+                ParkingSpot
             </ReloadBtn>
             {parkingSpace && (
                 <div className="parking-spots">
