@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import Camera from './Camera';
 
 async function getLists({ URL }) {
     const response = await axios.get(URL);
@@ -187,6 +188,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
                     );
                 })}
             </div>
+            <Camera></Camera>
         </BeaconLayoutDiv>
     );
 };
