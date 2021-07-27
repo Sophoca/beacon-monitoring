@@ -8,18 +8,17 @@ const ParkingSpot = ({ parkingSpot, heightRatio }) => {
     const toggleParkingSpace = () => {
         setParkingSpace(!parkingSpace);
     };
-    const temp = Object.keys(parkingSpot.parkingSpotPosition).reduce(
-        (obj, d) => ({
-            ...obj,
-            [d]: {
-                top: parkingSpot.parkingSpotPosition[d].top,
-                left: parkingSpot.parkingSpotPosition[d].left
-            }
-        }),
-        {}
-    );
-
-    console.log('parking spot top-left', temp);
+    // const temp = Object.keys(parkingSpot.parkingSpotPosition).reduce(
+    //     (obj, d) => ({
+    //         ...obj,
+    //         [d]: {
+    //             top: parkingSpot.parkingSpotPosition[d].top,
+    //             left: parkingSpot.parkingSpotPosition[d].left
+    //         }
+    //     }),
+    //     {}
+    // );
+    // console.log('parking spot top-left', temp);
     return (
         <>
             <Button
@@ -43,11 +42,25 @@ const ParkingSpot = ({ parkingSpot, heightRatio }) => {
                         const top = parkingSpot.parkingSpotPosition[spotKey].top;
                         const left = parkingSpot.parkingSpotPosition[spotKey].left;
                         const rotate = parkingSpot.parkingSpotPosition[spotKey].rotate;
+                        const rad = (Math.PI / 180) * rotate;
                         const size = parkingSpot.parkingSpotSize;
                         const msg = `# ${spotKey}
 
-[${left}, ${top}] [${left + size.width}, ${top}]
-[${left}, ${top + size.height}] [${left + size.width}, ${top + size.height}]
+[${left.toFixed(2)}, ${top.toFixed(2)}] [${(left + size.width * Math.cos(rad)).toFixed(2)}, ${(
+                            top +
+                            size.width * Math.sin(rad)
+                        ).toFixed(2)}]
+[${(left + size.height * Math.sin(rad)).toFixed(2)}, ${(top + size.height * Math.cos(rad)).toFixed(
+                            2
+                        )}] [${(
+                            left +
+                            size.width * Math.cos(rad) +
+                            size.height * Math.sin(rad)
+                        ).toFixed(2)}, ${(
+                            top +
+                            size.width * Math.sin(rad) +
+                            size.height * Math.cos(rad)
+                        ).toFixed(2)}]
 `;
                         return (
                             <ParkingSpotDiv

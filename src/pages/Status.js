@@ -49,7 +49,7 @@ function Status({ match, location: { state }, mainReload }) {
                 className="mainAPI-reload-btn"
                 startIcon={<RefreshIcon />}
                 onClick={mainReload}
-                style={{ position: 'fixed', margin: 20 + 'px' }}
+                style={{ position: 'fixed', margin: 20 + 'px', zIndex: 1 }}
             >
                 Main
             </Button>

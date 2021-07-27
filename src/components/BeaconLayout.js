@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import ParkingSpot from './ParkingSpot';
 
 async function getLists({ URL }) {
     const response = await axios.get(URL);
@@ -123,8 +122,8 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
                 <StyledP>{`mac: ${current.mac}`}</StyledP>
                 <StyledP>{`bleName: ${current.bleName}`}</StyledP>
                 <StyledP>{`ibeaconUuid: ${current.ibeaconUuid}`}</StyledP>
-                <StyledP>{`ibeaconMajor: ${current.ibeaconMajor}`}</StyledP>
-                <StyledP>{`ibeaconMinor: ${current.ibeaconMinor}`}</StyledP>
+                {/* <StyledP>{`ibeaconMajor: ${current.ibeaconMajor}`}</StyledP>
+                <StyledP>{`ibeaconMinor: ${current.ibeaconMinor}`}</StyledP> */}
                 <StyledP>{`rssi: ${current.rssi}`}</StyledP>
                 <StyledP>{`ibeaconTxPower: ${current.ibeaconTxPower}`}</StyledP>
                 <StyledP>{`battery: ${current.battery}`}</StyledP>
@@ -162,7 +161,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
             >
                 Beacon
             </Button>
-            <ParkingSpot parkingSpot={configSlot} heightRatio={heightRatio} />
+
             <RestBeaconTemplate
                 restKeys={restKeys}
                 beaconSize={beaconSize}

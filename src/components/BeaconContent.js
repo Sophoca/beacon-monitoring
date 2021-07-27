@@ -33,8 +33,8 @@ const BeaconContent = ({ major, minor, beaconSize, isActive, message, isAbnormal
                 ></BeaconDiv>
             </div>
             <div>
-                <StyledH3>{`major: ${major}`}</StyledH3>
-                <StyledH3>{`minor: ${minor}`}</StyledH3>
+                <StyledH3>{`Major: ${major}`}</StyledH3>
+                <StyledH3>{`Minor: ${minor}`}</StyledH3>
             </div>
         </div>
         <div
