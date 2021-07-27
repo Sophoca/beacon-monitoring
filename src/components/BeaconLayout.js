@@ -6,8 +6,9 @@ import styled from 'styled-components';
 import RestBeaconTemplate from './RestBeaconTemplate';
 import Beacon from './Beacon';
 import Button from '@material-ui/core/Button';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import RefreshIcon from '@material-ui/icons/Refresh';
-
 import ParkingSpot from './ParkingSpot';
 
 async function getLists({ URL }) {
@@ -49,11 +50,12 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
 
     if (isLoading)
         return (
-            <BeaconLayoutDiv>
-                <StyledDiv>
-                    <p>로딩중-BeaconLayout</p>
-                </StyledDiv>
-            </BeaconLayoutDiv>
+            <Backdrop className="beacon-loading" open={true} style={{ zIndex: 10 }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <CircularProgress color="inherit" />
+                    <p>Loading BeaconLayout</p>
+                </div>
+            </Backdrop>
         );
     if (error)
         return (

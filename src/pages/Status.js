@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { useAsync } from 'react-async';
 import Button from '@material-ui/core/Button';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Map from '../components/Map';
 
@@ -9,18 +11,6 @@ async function getLists({ parkingLotURL }) {
     const response = await axios.get(parkingLotURL);
     return response.data;
 }
-
-// const StyledNav = styled.div`
-//     display: flex;
-//     position: fixed;
-//     top: 0;
-//     left: 270;
-//     width: 100%;
-//     height: 74px;
-//     align-items: center;
-//     justify-content: flex-start;
-//     box-shadow: 0px 0px 5px;
-// `;
 
 function Status({ match, location: { state }, mainReload }) {
     const parkingLotURL = state.parkingLotInfoURL;
@@ -34,7 +24,15 @@ function Status({ match, location: { state }, mainReload }) {
         watch: parkingLotURL
     });
 
-    if (isLoading || !data.mapInfo.imageUrl[detail]) return <div>로딩중-Status</div>;
+    if (isLoading || !data.mapInfo.imageUrl[detail])
+        return (
+            <Backdrop className="beacon-loading" open={true} style={{ zIndex: 10 }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <CircularProgress color="inherit" />
+                    <p>Loading Status</p>
+                </div>
+            </Backdrop>
+        );
     if (error) return <div>에러가 발생했습니다-Status {error}</div>;
     if (!data) return <div>반환값 없음-Status</div>;
 
