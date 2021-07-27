@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { useAsync } from 'react-async';
-import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Map from '../components/Map';
@@ -11,17 +10,17 @@ async function getLists({ parkingLotURL }) {
     return response.data;
 }
 
-const StyledNav = styled.div`
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 270;
-    width: 100%;
-    height: 74px;
-    align-items: center;
-    justify-content: flex-start;
-    box-shadow: 0px 0px 5px;
-`;
+// const StyledNav = styled.div`
+//     display: flex;
+//     position: fixed;
+//     top: 0;
+//     left: 270;
+//     width: 100%;
+//     height: 74px;
+//     align-items: center;
+//     justify-content: flex-start;
+//     box-shadow: 0px 0px 5px;
+// `;
 
 function Status({ match, location: { state }, mainReload }) {
     const parkingLotURL = state.parkingLotInfoURL;
@@ -45,11 +44,7 @@ function Status({ match, location: { state }, mainReload }) {
     const allBeaconInfo = data.mapInfo.allBeaconInfo;
 
     return (
-        <div
-            className="Status"
-            style={{ position: 'absolute', width: '100%', height: '100%', zIndex: '0' }}
-        >
-            <StyledNav />
+        <div className="Status" style={{ position: 'absolute', width: '100%', height: '100%' }}>
             <Button
                 variant="contained"
                 color="primary"
@@ -58,7 +53,7 @@ function Status({ match, location: { state }, mainReload }) {
                 onClick={mainReload}
                 style={{ position: 'fixed', margin: 20 + 'px' }}
             >
-                Main API
+                Main
             </Button>
             <Map
                 location={location}

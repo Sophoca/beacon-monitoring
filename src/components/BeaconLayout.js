@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useAsync } from 'react-async';
 import deepmerge from 'deepmerge';
 import styled from 'styled-components';
 import RestBeaconTemplate from './RestBeaconTemplate';
 import Beacon from './Beacon';
-import ParkingSpotDiv from './ParkingSpotDiv';
 import Button from '@material-ui/core/Button';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import DriveEtaIcon from '@material-ui/icons/DriveEta';
+
+import ParkingSpot from './ParkingSpot';
 
 async function getLists({ URL }) {
     const response = await axios.get(URL);
@@ -22,17 +22,6 @@ const BeaconLayoutDiv = styled.div`
     z-index: 11;
     width: 100%;
     height: 100%;
-`;
-
-const ReloadBtn = styled.button`
-    color: white;
-    background-color: black;
-    width: 100px;
-    height: 40px;
-    position: fixed;
-    z-index: 250;
-    left: 270px;
-    top: 40px;
 `;
 
 const StyledP = styled.p`
@@ -51,13 +40,6 @@ const StyledDiv = styled.div`
 const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, detail }) => {
     const heightRatio = imgHeight / configSlot.parkingLotSize.height;
     const beaconSize = 12;
-
-    //----------------------------------------------------------------
-    const [parkingSpace, setParkingSpace] = useState(false);
-    const toggleParkingSpace = () => {
-        setParkingSpace(!parkingSpace);
-    };
-    //----------------------------------------------------------------
 
     const { data, error, isLoading, reload } = useAsync({
         promiseFn: getLists,
@@ -161,20 +143,6 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
         return msg;
     }
 
-    //----------------------------------------------
-    const temp = Object.keys(configSlot.parkingSpotPosition).reduce(
-        (obj, d) => ({
-            ...obj,
-            [d]: {
-                top: configSlot.parkingSpotPosition[d].top,
-                left: configSlot.parkingSpotPosition[d].left
-            }
-        }),
-        {}
-    );
-    console.log(temp);
-    //----------------------------------------------
-
     return (
         <BeaconLayoutDiv>
             <Button
@@ -185,62 +153,14 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
                 style={{
                     position: 'fixed',
                     top: 0,
-                    left: 405 + 'px',
-                    margin: 20 + 'px',
-                    zIndex: 2
+                    left: 385 + 'px',
+                    margin: 20 + 'px'
                 }}
                 onClick={reload}
             >
-                Beacon API
+                Beacon
             </Button>
-
-            {/*  */}
-            <Button
-                variant="contained"
-                color="secondary"
-                className="parking-spot-toggle-btn"
-                startIcon={<DriveEtaIcon />}
-                style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 565 + 'px',
-                    margin: 20 + 'px',
-                    zIndex: 2
-                }}
-                onClick={toggleParkingSpace}
-            >
-                Parking Spot
-            </Button>
-            {parkingSpace && (
-                <div className="parking-spots">
-                    {Object.keys(configSlot.parkingSpotPosition).map(spotKey => {
-                        const top = configSlot.parkingSpotPosition[spotKey].top;
-                        const left = configSlot.parkingSpotPosition[spotKey].left;
-                        const rotate = configSlot.parkingSpotPosition[spotKey].rotate;
-                        const size = configSlot.parkingSpotSize;
-                        const msg = `# ${spotKey}
-
-[${left}, ${top}] [${left + size.width}, ${top}]
-[${left}, ${top + size.height}] [${left + size.width}, ${top + size.height}]
-`;
-                        return (
-                            <ParkingSpotDiv
-                                key={spotKey}
-                                className={spotKey}
-                                top={top}
-                                left={left}
-                                rotate={rotate}
-                                size={size}
-                                heightRatio={heightRatio}
-                                onClick={() => alert(msg)}
-                            />
-                        );
-                    })}
-                </div>
-            )}
-
-            {/*  */}
-
+            <ParkingSpot parkingSpot={configSlot} heightRatio={heightRatio} />
             <RestBeaconTemplate
                 restKeys={restKeys}
                 beaconSize={beaconSize}
