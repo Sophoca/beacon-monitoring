@@ -1,14 +1,15 @@
 .todo-item {
-    padding: 0.1rem;
+    padding: 3px;
     display: flex;
     align-items: center; /* 세로 가운데 정렬 */
+    justify-content: space-around;
     cursor: pointer;
     transition: all 0.15s;
     user-select: none;
 }
 
 .todo-item:hover {
-    background: #e3fafc;
+    background: rgb(255, 186, 206);
 }
 
 /* todo-item 사이에 윗 테두리 */

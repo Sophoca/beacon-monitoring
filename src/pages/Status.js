@@ -27,9 +27,9 @@ function Status({ match, location: { state }, mainReload }) {
     if (isLoading || !data.mapInfo.imageUrl[detail])
         return (
             <Backdrop className="beacon-loading" open={true} style={{ zIndex: 10 }}>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <CircularProgress color="inherit" />
-                    <p>Loading Status</p>
+                    <p>Status</p>
                 </div>
             </Backdrop>
         );

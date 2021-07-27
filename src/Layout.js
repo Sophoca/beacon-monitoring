@@ -24,9 +24,9 @@ function Layout() {
     if (isLoading)
         return (
             <Backdrop className="beacon-loading" open={true} style={{ zIndex: 10 }}>
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <CircularProgress color="inherit" />
-                    <p>Loading Layout</p>
+                    <p>Layout</p>
                 </div>
             </Backdrop>
         );

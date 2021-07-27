@@ -23,7 +23,7 @@ const ParkingSpot = ({ parkingSpot, heightRatio }) => {
     return (
         <>
             <Button
-                variant="contained"
+                variant={parkingSpace ? 'outlined' : 'contained'}
                 color="default"
                 className="parking-spot-toggle-btn"
                 startIcon={<DriveEtaSharpIcon />}

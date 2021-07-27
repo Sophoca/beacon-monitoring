@@ -14,9 +14,8 @@ const RestBeacon = ({ major, minor, beaconSize, msg }) => {
     return (
         <>
             <div className="todo-item" onClick={openModal}>
-                <div className="todo-text">
-                    <div>{minor}</div>
-                </div>
+                <div>{major}</div>
+                <div>{minor}</div>
             </div>
             {modalOpen && (
                 <Modal

@@ -1,18 +1,37 @@
-.todo-list-template {
+.menu {
     background: white;
-    width: 100px;
+    border-radius: 5px;
+    width: 200px;
     position: fixed;
     z-index: 11;
-    top: 80px;
-    left: 270px;
+    top: 60px;
+    right: 0px;
+    margin: 20px;
     max-height: 90%;
     overflow-y: scroll;
+    opacity: 0;
+    visibility: hidden;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    transform: translateY(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+}
+
+.menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .title {
-    padding: 0.5rem;
-    text-align: center;
-    background: #22b8cf;
+    background: rgba(239, 0, 69, 1);
+    padding: 5px;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.title-content {
+    font-size: 1.1rem;
+    /* font-weight: bold; */
 }

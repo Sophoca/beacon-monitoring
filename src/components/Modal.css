@@ -23,7 +23,7 @@
     position: relative;
 }
 .modal-container > .card {
-    border-radius: 3px;
+    border-radius: 5px;
     padding: 20px;
     background-color: white;
 }
