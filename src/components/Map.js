@@ -1,6 +1,7 @@
 import React from 'react';
 import BeaconLayout from './BeaconLayout';
 import ParkingSpot from './ParkingSpot';
+import Camera from './Camera';
 
 const mapSize = { Kintex: 900, Cheonho: 500, PyeongchonUrvineFirst: 900, default: 800 };
 
@@ -19,6 +20,7 @@ const Map = ({ location, detail, imageUrl, allBeaconInfo, configSlot, realBeacon
         >
             <img src={imageUrl} alt={imageInfo} height={imgHeight} />
             <ParkingSpot parkingSpot={configSlot} heightRatio={heightRatio} />
+            <Camera></Camera>
             {allBeaconInfo && (
                 <BeaconLayout
                     allBeaconInfo={allBeaconInfo}

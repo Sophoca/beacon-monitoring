@@ -60,7 +60,7 @@ export default class StreamedianPlayer extends React.Component {
                     <button onClick={this.restart}>Reload</button>
                     <VideoRateControl video={this.props.id} />
                 </div>
-                <video id={this.props.id} controls autoPlay>
+                <video id={this.props.id} width="720" controls autoPlay>
                     {this.props.children}
                 </video>
             </div>

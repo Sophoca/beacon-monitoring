@@ -17,14 +17,14 @@ const Camera = () => {
                 className="beaconAPI-reload-btn"
                 style={{
                     position: 'fixed',
-                    top: 0,
+                    top: 50,
                     left: 425 + 'px',
                     margin: 20 + 'px',
                     zIndex: 20
                 }}
                 onClick={openModal}
             >
-                Beacon
+                Live Streaming
             </button>
             {modalOpen && (
                 <Modal
@@ -32,10 +32,13 @@ const Camera = () => {
                         <div>
                             <Streamedian
                                 id="test"
-                                url={`rtsp://admin:admin1234@218.153.209.100:501/cam/realmonitor?channel=8&subtype=1`}
+                                url={
+                                    'rtsp://admin:admin1234@218.153.209.100:501/cam/realmonitor?channel=8&subtype=1'
+                                }
                             ></Streamedian>
                         </div>
                     }
+                    isLayoutScrollEnabled={true}
                     onClickClose={closeModal}
                 ></Modal>
             )}

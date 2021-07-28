@@ -8,7 +8,6 @@ import Beacon from './Beacon';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import Camera from './Camera';
 import StyledBackground from './StyledBackground';
 
 async function getLists({ URL }) {
@@ -194,7 +193,6 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
                     );
                 })}
             </div>
-            <Camera></Camera>
         </BeaconLayoutDiv>
     );
 };
