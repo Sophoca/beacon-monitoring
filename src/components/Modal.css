@@ -17,8 +17,8 @@
 }
 .modal-container {
     width: 100%;
-    min-width: 300px;
-    max-width: 710px;
+    min-width: 500px;
+    max-width: fit-content;
     animation-duration: 0.5s;
     position: relative;
 }

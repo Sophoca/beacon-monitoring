@@ -1,10 +1,11 @@
 import React from 'react';
+import VideoRateControl from './VideoRateControl';
 
 export default class StreamedianPlayer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            bufferDuration: 30,
+            bufferDuration: 10,
             socket: 'ws://localhost:8080/ws/',
             redirectNativeMediaErrors: true,
             errorHandler: this.errHandler.bind(this),
@@ -45,6 +46,7 @@ export default class StreamedianPlayer extends React.Component {
 
     errHandler(err) {
         console.error(err.message);
+        this.restart();
     }
 
     infHandler(inf) {
@@ -53,7 +55,11 @@ export default class StreamedianPlayer extends React.Component {
 
     render() {
         return (
-            <div className="video-player">
+            <div className="rtsp-player">
+                <div className="rtsp-player-controller">
+                    <button onClick={this.restart}>Reload</button>
+                    <VideoRateControl video={this.props.id} />
+                </div>
                 <video id={this.props.id} controls autoPlay>
                     {this.props.children}
                 </video>

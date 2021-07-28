@@ -2,11 +2,11 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
 import { useAsync } from 'react-async';
-import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Aside from './Aside';
 import Main from './Main';
 import './Layout.css';
+import StyledBackground from './components/StyledBackground';
 
 async function getLists({ URL }) {
     const response = await axios.get(URL);
@@ -23,12 +23,12 @@ function Layout() {
 
     if (isLoading)
         return (
-            <Backdrop className="beacon-loading" open={true} style={{ zIndex: 10 }}>
+            <StyledBackground>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <CircularProgress color="inherit" />
                     <p>Layout</p>
                 </div>
-            </Backdrop>
+            </StyledBackground>
         );
     if (error) return <div>에러가 발생했습니다-Layout {console.error(error)}</div>;
     if (!data) return <div>반환값 없음-Layout</div>;

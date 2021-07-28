@@ -12,7 +12,7 @@ const Camera = () => {
     };
 
     return (
-        <div>
+        <>
             <button
                 className="beaconAPI-reload-btn"
                 style={{
@@ -39,7 +39,7 @@ const Camera = () => {
                     onClickClose={closeModal}
                 ></Modal>
             )}
-        </div>
+        </>
     );
 };
 
