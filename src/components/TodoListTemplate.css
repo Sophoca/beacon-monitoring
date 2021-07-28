@@ -24,7 +24,7 @@
 }
 
 .title {
-    background: rgba(239, 0, 69, 1);
+    background: orange;
     padding: 5px;
     color: white;
     display: flex;

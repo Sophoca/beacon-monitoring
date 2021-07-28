@@ -24,6 +24,7 @@ const Beacon = ({ top, left, beaconSize, isActive, major, minor, message }) => {
             />
             {modalOpen && (
                 <Modal
+                    className="modal-popup"
                     children={
                         <BeaconContent
                             major={major}
@@ -34,6 +35,7 @@ const Beacon = ({ top, left, beaconSize, isActive, major, minor, message }) => {
                             message={message}
                         ></BeaconContent>
                     }
+                    isLayoutScrollEnabled={true}
                     onClickClose={closeModal}
                 ></Modal>
             )}

@@ -15,7 +15,7 @@ const ParkingSpotDiv = styled.div.attrs(props => ({
     background-color: grey;
     position: absolute;
     transform-origin: top left;
-    z-index: 100;
+    z-index: 80;
     opacity: 0.3;
     &:hover {
         background-color: red;

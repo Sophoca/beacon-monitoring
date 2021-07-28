@@ -22,14 +22,14 @@ const RestBeaconTemplate = ({ restKeys, beaconSize, ShowGatewayMac }) => {
             >
                 <Button
                     variant={isActive ? 'outlined' : 'contained'}
-                    color="secondary"
+                    color="default"
                     className="parking-spot-toggle-btn"
                     startIcon={<HelpOutlineSharpIcon />}
                     onClick={onClick}
                 >
                     Rest Keys
                 </Button>
-                <Badge badgeContent={num} color="error"></Badge>
+                <Badge badgeContent={num} color="error" style={{ top: -15 }}></Badge>
             </div>
 
             <div className={`menu ${isActive && 'active'}`}>

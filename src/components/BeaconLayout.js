@@ -27,7 +27,6 @@ const BeaconLayoutDiv = styled.div`
 
 const StyledP = styled.p`
     margin: 6px;
-    width: 100%;
 `;
 
 const StyledDiv = styled.div`
@@ -173,7 +172,13 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
                 {Object.values(allBeaconInfo[detail]).map((beacon, idx) => {
                     const current = realBeaconInfo[beacon.major][beacon.minor];
                     const isActive = current ? true : false;
-                    const message = isActive ? GetMessage(beacon.major, beacon.minor) : 'no signal';
+                    const message = isActive ? (
+                        GetMessage(beacon.major, beacon.minor)
+                    ) : (
+                        <>
+                            <StyledP style={{ textAlign: 'center' }}>No Signal</StyledP>
+                        </>
+                    );
                     // battery 상태 isAbnormal로 넘겨주는거 고민
                     return (
                         <Beacon

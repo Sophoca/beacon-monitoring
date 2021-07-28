@@ -18,11 +18,11 @@ const BeaconContent = ({ major, minor, beaconSize, isActive, message, isAbnormal
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                minWidth: 35 + '%'
+                flex: 2
             }}
         >
             <div style={{ display: 'flex', alignItems: 'center' }}>
-                <h2 style={{ margin: 10 }}>Beacon Status</h2>
+                <h2 style={{ flex: 1, margin: 10 }}>Beacon Status</h2>
                 <BeaconDiv
                     top={0}
                     left={0}
@@ -39,7 +39,7 @@ const BeaconContent = ({ major, minor, beaconSize, isActive, message, isAbnormal
         </div>
         <div
             style={{
-                width: 60 + '%',
+                flex: 3,
                 marginLeft: 2 + 'rem'
             }}
         >

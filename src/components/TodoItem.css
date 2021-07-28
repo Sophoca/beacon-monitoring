@@ -9,7 +9,7 @@
 }
 
 .todo-item:hover {
-    background: rgb(255, 186, 206);
+    background: rgba(255, 166, 0, 0.26);
 }
 
 /* todo-item 사이에 윗 테두리 */
