@@ -74,6 +74,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
             </BeaconLayoutDiv>
         );
 
+    // console.log(data);
     const realBeaconInfo = Object.values(data).reduce(
         (obj, d) =>
             deepmerge(

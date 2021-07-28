@@ -33,7 +33,7 @@ function Layout() {
     if (error) return <div>에러가 발생했습니다-Layout {console.error(error)}</div>;
     if (!data) return <div>반환값 없음-Layout</div>;
 
-    console.log('layout', data.lists);
+    // console.log('layout', data.lists);
 
     return (
         <div className="layout">
