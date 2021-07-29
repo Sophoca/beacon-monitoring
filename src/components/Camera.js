@@ -1,5 +1,6 @@
 import Modal from './Modal';
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import Streamedian from '../Streamedian';
 
 const Camera = () => {
@@ -10,6 +11,14 @@ const Camera = () => {
     const closeModal = () => {
         setModalOpen(false);
     };
+
+    const StyledDiv = styled.div`
+        display: flex;
+        position: absolute;
+        top: 0;
+        align-items: center;
+        justify-content: center;
+    `;
 
     return (
         <>
@@ -29,13 +38,16 @@ const Camera = () => {
             {modalOpen && (
                 <Modal
                     children={
-                        <div>
+                        <div style={{ position: 'relative' }}>
                             <Streamedian
                                 id="test"
                                 url={
                                     'rtsp://admin:admin1234@218.153.209.100:501/cam/realmonitor?channel=8&subtype=1'
                                 }
                             ></Streamedian>
+                            <StyledDiv>
+                                <button>button up</button>
+                            </StyledDiv>
                         </div>
                     }
                     isLayoutScrollEnabled={true}
