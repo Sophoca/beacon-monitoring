@@ -15,7 +15,6 @@ export default class StreamedianPlayer extends React.Component {
         this.player = null;
         this.restart = this.restart.bind(this);
         this.changeSource = this.changeSource.bind(this);
-        this.changeBufferDuration = this.changeBufferDuration.bind(this);
     }
 
     componentDidMount() {
@@ -23,8 +22,11 @@ export default class StreamedianPlayer extends React.Component {
     }
 
     componentWillUnmount() {
-        this.player.destroy();
-        this.player = null;
+        console.log('unmount!', this.player);
+        if (this.player) {
+            this.player.destroy();
+            this.player = null;
+        }
     }
 
     restart() {
@@ -38,10 +40,6 @@ export default class StreamedianPlayer extends React.Component {
         this.setState({ source: src }, () => {
             this.restart();
         });
-    }
-
-    changeBufferDuration(duration) {
-        this.setState({ bufferDuration: duration });
     }
 
     errHandler(err) {
@@ -60,8 +58,17 @@ export default class StreamedianPlayer extends React.Component {
                     {this.props.children}
                 </video>
                 <div className="rtsp-player-controller">
-                    <button onClick={this.restart}>Reload</button>
+                    <button onClick={() => this.restart}>Reload</button>
                     <VideoRateControl video={this.props.id} />
+                    <button
+                        onClick={() =>
+                            this.changeSource(
+                                'rtsp://admin:admin1234@218.153.209.100:501/cam/realmonitor?channel=7&subtype=1'
+                            )
+                        }
+                    >
+                        new cam
+                    </button>
                 </div>
             </div>
         );

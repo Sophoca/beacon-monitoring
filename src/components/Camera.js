@@ -2,7 +2,15 @@ import Modal from './Modal';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Streamedian from '../Streamedian';
-
+const StyledDiv = styled.div`
+    display: flex;
+    position: absolute;
+    top: 0;
+    align-items: center;
+    width: 100%;
+    height: 100%
+    justify-content: center;
+`;
 const Camera = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => {
@@ -11,14 +19,6 @@ const Camera = () => {
     const closeModal = () => {
         setModalOpen(false);
     };
-
-    const StyledDiv = styled.div`
-        display: flex;
-        position: absolute;
-        top: 0;
-        align-items: center;
-        justify-content: center;
-    `;
 
     return (
         <>
@@ -38,7 +38,7 @@ const Camera = () => {
             {modalOpen && (
                 <Modal
                     children={
-                        <div style={{ position: 'relative' }}>
+                        <div>
                             <Streamedian
                                 id="test"
                                 url={
