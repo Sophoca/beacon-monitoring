@@ -5,11 +5,12 @@ export default class StreamedianPlayer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            bufferDuration: 10,
+            bufferDuration: 30,
             socket: 'ws://localhost:8080/ws/',
             redirectNativeMediaErrors: true,
             errorHandler: this.errHandler.bind(this),
-            infoHandler: this.infHandler.bind(this)
+            infoHandler: this.infHandler.bind(this),
+            id: this.props.id
         };
 
         this.player = null;
@@ -23,17 +24,19 @@ export default class StreamedianPlayer extends React.Component {
 
     componentWillUnmount() {
         console.log('unmount!', this.player);
-        if (this.player) {
+        if (this.player !== null) {
             this.player.destroy();
             this.player = null;
         }
     }
 
     restart() {
-        this.player.player.src = this.state.source;
-        this.player.destroy();
+        if (this.player !== null) {
+            this.player.player.src = this.state.source;
+            this.player.destroy();
+        }
         this.player = null;
-        this.player = window.Streamedian.player(this.props.id, this.state);
+        this.player = window.Streamedian.player(this.state.id, this.state);
     }
 
     changeSource(src) {
@@ -54,11 +57,11 @@ export default class StreamedianPlayer extends React.Component {
     render() {
         return (
             <div className="rtsp-player">
-                <video id={this.props.id} width="720" controls autoPlay>
+                <video id={this.state.id} width="720" height="480" controls autoPlay>
                     {this.props.children}
                 </video>
                 <div className="rtsp-player-controller">
-                    <button onClick={() => this.restart}>Reload</button>
+                    <button onClick={() => this.restart()}>Reload</button>
                     <VideoRateControl video={this.props.id} />
                     <button
                         onClick={() =>
@@ -67,7 +70,16 @@ export default class StreamedianPlayer extends React.Component {
                             )
                         }
                     >
-                        new cam
+                        next cam
+                    </button>
+                    <button
+                        onClick={() =>
+                            this.changeSource(
+                                'rtsp://admin:admin1234@218.153.209.100:501/cam/realmonitor?channel=5&subtype=1'
+                            )
+                        }
+                    >
+                        prev cam
                     </button>
                 </div>
             </div>

@@ -3,7 +3,7 @@ import StreamedianPlayer from './StreamedianPlayer';
 
 const App = ({ id, url }) => (
     <div>
-        <StreamedianPlayer id="test_video">
+        <StreamedianPlayer id={id}>
             {<source src={url} type="application/x-rtsp" />}
         </StreamedianPlayer>
     </div>

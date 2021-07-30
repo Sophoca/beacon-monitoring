@@ -38,6 +38,8 @@ function Status({ match, location: { state }, mainReload }) {
     const imageUrl = data.mapInfo.imageUrl[detail];
     const configSlot = data.mapInfo.configSlot[detail];
     const allBeaconInfo = data.mapInfo.allBeaconInfo;
+    const cameraInfo = data.mapInfo.cameraInfo[detail];
+    console.log('cam', cameraInfo);
 
     return (
         <div className="Status" style={{ position: 'absolute', width: '100%', height: '100%' }}>
@@ -56,6 +58,7 @@ function Status({ match, location: { state }, mainReload }) {
                 detail={detail}
                 imageUrl={imageUrl}
                 allBeaconInfo={allBeaconInfo}
+                cameraInfo={cameraInfo}
                 configSlot={configSlot}
                 realBeaconURL={realBeaconURL}
             />

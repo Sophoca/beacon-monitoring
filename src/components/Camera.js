@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
     height: 100%
     justify-content: center;
 `;
-const Camera = () => {
+const Camera = ({ id }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => {
         setModalOpen(true);
@@ -19,6 +19,8 @@ const Camera = () => {
     const closeModal = () => {
         setModalOpen(false);
     };
+
+    const [ID, setID] = useState(id);
 
     return (
         <>
@@ -38,17 +40,10 @@ const Camera = () => {
             {modalOpen && (
                 <Modal
                     children={
-                        <div>
-                            <Streamedian
-                                id="test"
-                                url={
-                                    'rtsp://admin:admin1234@218.153.209.100:501/cam/realmonitor?channel=8&subtype=1'
-                                }
-                            ></Streamedian>
-                            <StyledDiv>
-                                <button>button up</button>
-                            </StyledDiv>
-                        </div>
+                        <Streamedian
+                            id="test"
+                            url={`rtsp://admin:admin1234@218.153.209.100:501/cam/realmonitor?channel=8&subtype=1`}
+                        ></Streamedian>
                     }
                     isLayoutScrollEnabled={true}
                     onClickClose={closeModal}
