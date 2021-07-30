@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
     height: 100%
     justify-content: center;
 `;
-const Camera = ({ id }) => {
+const Camera = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = () => {
         setModalOpen(true);
@@ -20,7 +20,7 @@ const Camera = ({ id }) => {
         setModalOpen(false);
     };
 
-    const [ID, setID] = useState(id);
+    const [ID, setID] = useState(8);
 
     return (
         <>
