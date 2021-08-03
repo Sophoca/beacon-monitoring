@@ -102,7 +102,9 @@ const Map = ({
                     />
                 )}
 
-                {cameraToggle && <Camera></Camera>}
+                {cameraToggle && (
+                    <Camera cameraInfo={cameraInfo} heightRatio={heightRatio}></Camera>
+                )}
             </div>
         </>
     );

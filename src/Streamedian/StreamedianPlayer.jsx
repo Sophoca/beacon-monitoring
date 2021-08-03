@@ -1,6 +1,5 @@
 import React from 'react';
 import VideoRateControl from './VideoRateControl';
-
 export default class StreamedianPlayer extends React.Component {
     constructor(props) {
         super(props);
@@ -20,6 +19,15 @@ export default class StreamedianPlayer extends React.Component {
 
     componentDidMount() {
         this.player = window.Streamedian.player(this.props.id, this.state);
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props.url !== nextProps.url;
+    }
+
+    componentDidUpdate() {
+        this.changeSource(this.props.url);
+        console.log('check, update!', this.props);
     }
 
     componentWillUnmount() {
@@ -55,8 +63,9 @@ export default class StreamedianPlayer extends React.Component {
     }
 
     render() {
+        console.log('check', this.props);
         return (
-            <div className="rtsp-player">
+            <>
                 <video id={this.state.id} width="720" height="480" controls autoPlay>
                     {this.props.children}
                 </video>
@@ -72,17 +81,8 @@ export default class StreamedianPlayer extends React.Component {
                     >
                         next cam
                     </button>
-                    <button
-                        onClick={() =>
-                            this.changeSource(
-                                'rtsp://admin:admin1234@218.153.209.100:501/cam/realmonitor?channel=5&subtype=1'
-                            )
-                        }
-                    >
-                        prev cam
-                    </button>
                 </div>
-            </div>
+            </>
         );
     }
 }
