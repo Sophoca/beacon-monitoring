@@ -36,8 +36,7 @@ const StyledDiv = styled.div`
     justify-content: center;
 `;
 
-const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, detail }) => {
-    const heightRatio = imgHeight / configSlot.parkingLotSize.height;
+const BeaconLayout = ({ allBeaconInfo, realBeaconURL, heightRatio, detail }) => {
     const beaconSize = 12;
 
     const { data, error, isLoading, reload } = useAsync({
@@ -153,13 +152,12 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, configSlot, imgHeight, det
                 startIcon={<RefreshIcon />}
                 style={{
                     position: 'fixed',
-                    top: 0,
-                    left: 385 + 'px',
+                    top: 50,
                     margin: 20 + 'px'
                 }}
                 onClick={reload}
             >
-                Beacon
+                Reload
             </Button>
 
             <RestBeaconTemplate

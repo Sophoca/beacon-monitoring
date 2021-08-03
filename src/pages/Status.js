@@ -38,12 +38,12 @@ function Status({ match, location: { state }, mainReload }) {
     const imageUrl = data.mapInfo.imageUrl[detail];
     const configSlot = data.mapInfo.configSlot[detail];
     const allBeaconInfo = data.mapInfo.allBeaconInfo;
-    const cameraInfo = data.mapInfo.cameraInfo[detail];
+    const cameraInfo = data.mapInfo.cameraInfo ? data.mapInfo.cameraInfo[detail] : null;
     console.log('cam', cameraInfo);
 
     return (
         <div className="Status" style={{ position: 'absolute', width: '100%', height: '100%' }}>
-            <Button
+            {/* <Button
                 variant="contained"
                 color="primary"
                 className="mainAPI-reload-btn"
@@ -52,7 +52,7 @@ function Status({ match, location: { state }, mainReload }) {
                 style={{ position: 'fixed', margin: 20 + 'px', zIndex: 1 }}
             >
                 Main
-            </Button>
+            </Button> */}
             <Map
                 location={location}
                 detail={detail}
