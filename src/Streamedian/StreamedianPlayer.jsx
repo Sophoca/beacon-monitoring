@@ -4,12 +4,16 @@ export default class StreamedianPlayer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            bufferDuration: 30,
+            bufferDuration: 10,
             socket: 'ws://localhost:8080/ws/',
             redirectNativeMediaErrors: true,
             errorHandler: this.errHandler.bind(this),
             infoHandler: this.infHandler.bind(this),
-            id: this.props.id
+            id: this.props.id,
+            // add
+            continuousFileLength: 180000,
+            eventFileLength: 10000,
+            canvas: 'video_canvas'
         };
 
         this.player = null;
@@ -55,7 +59,7 @@ export default class StreamedianPlayer extends React.Component {
 
     errHandler(err) {
         console.error(err.message);
-        this.restart();
+        // this.restart();
     }
 
     infHandler(inf) {
@@ -66,21 +70,13 @@ export default class StreamedianPlayer extends React.Component {
         console.log('check', this.props);
         return (
             <>
+                <canvas id="video_canvas" width="0" height="0"></canvas>
                 <video id={this.state.id} width="720" height="480" controls autoPlay>
                     {this.props.children}
                 </video>
                 <div className="rtsp-player-controller">
                     <button onClick={() => this.restart()}>Reload</button>
                     <VideoRateControl video={this.props.id} />
-                    <button
-                        onClick={() =>
-                            this.changeSource(
-                                'rtsp://admin:admin1234@218.153.209.100:501/cam/realmonitor?channel=7&subtype=1'
-                            )
-                        }
-                    >
-                        next cam
-                    </button>
                 </div>
             </>
         );
