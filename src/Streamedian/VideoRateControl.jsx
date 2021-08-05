@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
 export default class VideoRateControl extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             playbackRate: 1.0,
-            playbackRateText: "live",
+            playbackRateText: 'live'
         };
 
         this.video = null;
@@ -26,7 +26,7 @@ export default class VideoRateControl extends React.Component {
 
     livePlaybackRate(event) {
         this.setState({ playbackRate: 1 });
-        this.setState({ playbackRateText: "live" });
+        this.setState({ playbackRateText: 'live' });
         if (this.video.buffered.length) {
             this.video.currentTime = this.video.buffered.end(0);
         }

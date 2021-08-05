@@ -6,7 +6,7 @@ export default class StreamedianPlayer extends React.Component {
         this.state = {
             bufferDuration: 10,
             socket: 'ws://localhost:8080/ws/',
-            redirectNativeMediaErrors: true,
+            redirectNativeMediaErrors: false,
             errorHandler: this.errHandler.bind(this),
             infoHandler: this.infHandler.bind(this),
             id: this.props.id,
@@ -59,7 +59,7 @@ export default class StreamedianPlayer extends React.Component {
 
     errHandler(err) {
         console.error(err.message);
-        if (this.player) this.restart();
+        this.changeSource(this.state.url);
     }
 
     infHandler(inf) {
@@ -71,7 +71,7 @@ export default class StreamedianPlayer extends React.Component {
         return (
             <>
                 <canvas id="video_canvas" width="0" height="0"></canvas>
-                <video id={this.state.id} width="720" height="480" controls autoPlay>
+                <video id={this.state.id} width="640" height="360" controls autoPlay>
                     {this.props.children}
                 </video>
                 <div className="rtsp-player-controller">
