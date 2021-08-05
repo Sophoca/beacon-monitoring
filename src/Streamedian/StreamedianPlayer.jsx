@@ -59,7 +59,7 @@ export default class StreamedianPlayer extends React.Component {
 
     errHandler(err) {
         console.error(err.message);
-        // this.restart();
+        if (this.player) this.restart();
     }
 
     infHandler(inf) {

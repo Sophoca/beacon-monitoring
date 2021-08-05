@@ -40,7 +40,7 @@ const BeaconContent = ({ major, minor, beaconSize, isActive, message, isAbnormal
         <div
             style={{
                 flex: 3,
-                marginLeft: 2 + 'rem'
+                marginLeft: 2 + 'em'
             }}
         >
             {message}
