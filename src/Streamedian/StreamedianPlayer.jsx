@@ -1,19 +1,16 @@
 import React from 'react';
 import VideoRateControl from './VideoRateControl';
+import Button from '@material-ui/core/Button';
 export default class StreamedianPlayer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             bufferDuration: 10,
             socket: 'ws://localhost:8080/ws/',
-            redirectNativeMediaErrors: false,
+            redirectNativeMediaErrors: true,
             errorHandler: this.errHandler.bind(this),
             infoHandler: this.infHandler.bind(this),
-            id: this.props.id,
-            // add
-            continuousFileLength: 180000,
-            eventFileLength: 10000,
-            canvas: 'video_canvas'
+            id: this.props.id
         };
 
         this.player = null;
@@ -58,8 +55,9 @@ export default class StreamedianPlayer extends React.Component {
     }
 
     errHandler(err) {
-        console.error(err.message);
-        this.changeSource(this.state.url);
+        console.error('Error!', err.message);
+        // this.changeSource(this.state.url);
+        this.restart();
     }
 
     infHandler(inf) {
@@ -70,13 +68,25 @@ export default class StreamedianPlayer extends React.Component {
         console.log('check', this.props);
         return (
             <>
-                <canvas id="video_canvas" width="0" height="0"></canvas>
-                <video id={this.state.id} width="640" height="360" controls autoPlay>
-                    {this.props.children}
-                </video>
-                <div className="rtsp-player-controller">
-                    <button onClick={() => this.restart()}>Reload</button>
+                <div
+                    className="rtsp-player-controller"
+                    style={{ display: 'flex', gap: 10, marginBottom: 10 }}
+                >
+                    <Button
+                        className="btn-live"
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        onClick={() => this.restart()}
+                    >
+                        Reload
+                    </Button>
                     <VideoRateControl video={this.props.id} />
+                </div>
+                <div className="rtsp-player" style={{ border: 1 }}>
+                    <video id={this.state.id} width="640" height="360" controls autoPlay>
+                        {this.props.children}
+                    </video>
                 </div>
             </>
         );

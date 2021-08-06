@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
 export default class VideoRateControl extends React.Component {
     constructor(props) {
@@ -34,9 +35,15 @@ export default class VideoRateControl extends React.Component {
 
     render() {
         return (
-            <button className="btn btn-success" onClick={this.livePlaybackRate}>
+            <Button
+                className="btn-live"
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={this.livePlaybackRate}
+            >
                 Live
-            </button>
+            </Button>
         );
     }
 }
