@@ -31,7 +31,6 @@ const Camera = ({ cameraInfo, heightRatio }) => {
             <CameraLayoutDiv className="camera-layout">
                 {Object.keys(cameraInfo).map(camNum => {
                     const current = cameraInfo[camNum];
-                    const type = CamDict[camNum].type;
                     return (
                         <CameraDiv
                             key={camNum}
@@ -41,13 +40,7 @@ const Camera = ({ cameraInfo, heightRatio }) => {
                         >
                             <Button
                                 variant={camNum === ID ? 'contained' : 'outlined'}
-                                color={
-                                    type === 264
-                                        ? 'primary'
-                                        : type === 265
-                                        ? 'secondary'
-                                        : 'default'
-                                }
+                                color={'primary'}
                                 className="beacon-toggle-btn"
                                 onClick={() => setID(camNum)}
                                 style={{ padding: 0, minHeight: cameraSize, minWidth: cameraSize }}
