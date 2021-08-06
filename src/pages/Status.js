@@ -42,7 +42,10 @@ function Status({ match, location: { state }, mainReload }) {
     console.log('cam', cameraInfo);
 
     return (
-        <div className="Status" style={{ position: 'absolute', width: '100%', height: '100%' }}>
+        <div
+            className="Status"
+            style={{ position: 'absolute', width: 'content-fit', height: '100%' }}
+        >
             {/* <Button
                 variant="contained"
                 color="primary"
