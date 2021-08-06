@@ -14,15 +14,30 @@ const CameraLayoutDiv = styled.div`
     height: 100%;
 `;
 
+const CameraDegreeDiv = styled.div.attrs(props => ({
+    style: {
+        width: props.cameraSize / 2
+        // transform: `rotate(${props.degree}deg)`
+    }
+}))`
+    position: absolute
+    border-top: 10px solid red;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    height: 0;
+    // transform-origin: top left;
+    z-index: -1;
+`;
+
 const Camera = ({ cameraInfo, heightRatio }) => {
     const [ID, setID] = useState(null);
-    const cameraSize = 30;
+    const cameraSize = 26;
     const [url, setUrl] = useState(null);
     console.log(ID);
     useEffect(() => {
         ID &&
             setUrl(
-                `rtsp://admin:admin1234@218.153.209.100:${CamDict[ID].major}/cam/realmonitor?channel=${CamDict[ID].minor}&subtype=1`
+                `rtsp://admin:admin1234@218.153.209.100:${cameraInfo[ID].ip.major}/cam/realmonitor?channel=${cameraInfo[ID].ip.minor}&subtype=1`
             );
     }, [ID]);
 
@@ -40,13 +55,24 @@ const Camera = ({ cameraInfo, heightRatio }) => {
                         >
                             <Button
                                 variant={camNum === ID ? 'contained' : 'outlined'}
-                                color={'primary'}
+                                color="primary"
+                                size="small"
                                 className="beacon-toggle-btn"
                                 onClick={() => setID(camNum)}
-                                style={{ padding: 0, minHeight: cameraSize, minWidth: cameraSize }}
+                                style={{
+                                    padding: 0,
+                                    minHeight: cameraSize,
+                                    minWidth: cameraSize,
+                                    maxHeight: cameraSize,
+                                    maxWidth: cameraSize
+                                }}
                             >
                                 {camNum}
                             </Button>
+                            <CameraDegreeDiv
+                                cameraSize={cameraSize}
+                                degree={cameraInfo[camNum].degree}
+                            ></CameraDegreeDiv>
                         </CameraDiv>
                     );
                 })}
