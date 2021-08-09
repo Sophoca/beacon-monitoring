@@ -15,71 +15,78 @@ const CameraLayoutDiv = styled.div`
 
 const CameraDegreeDiv = styled.div.attrs(props => ({
     style: {
-        transform: `rotate(${props.degree}deg)`
+        width: props.cameraSize / 2 + 'px',
+        marginTop: -props.cameraSize - 2 + 'px'
     }
 }))`
     position: absolute;
+    margin-left: 0px;
 
-    div {
-        width: ${props => props.cameraSize / 2}px;
-        position: absolute;
-        margin-left: -10px;
-        margin-top: -16px;
-        border-top: 4px solid rgba(63, 81, 181, 1);
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        height: 0;
-        z-index: -1;
+    border-top: 4px solid rgba(63, 81, 181, 1);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    height: 0;
+    z-index: -1;
+`;
+
+const CameraName = styled.div.attrs(props => ({
+    style: {
+        color: props.isActive ? 'white' : 'blue'
     }
+}))`
+    font-size: 14px;
+    z-index: 11;
+    position: absolute;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 `;
 
 const Camera = ({ cameraInfo, heightRatio }) => {
     const [ID, setID] = useState(null);
     const cameraSize = 24;
-    const [url, setUrl] = useState(null);
-    console.log(ID);
-    useEffect(() => {
+
+    const url =
         ID &&
-            setUrl(
-                `rtsp://admin:admin1234@218.153.209.100:${cameraInfo[ID].ip.major}/cam/realmonitor?channel=${cameraInfo[ID].ip.minor}&subtype=1`
-            );
-    }, [ID]);
+        `rtsp://admin:admin1234@218.153.209.100:${cameraInfo[ID].ip.major}/cam/realmonitor?channel=${cameraInfo[ID].ip.minor}&subtype=1`;
 
     return (
         <>
             <CameraLayoutDiv className="camera-layout">
                 {Object.keys(cameraInfo).map(camNum => {
                     const current = cameraInfo[camNum];
+                    const isActive = camNum === ID;
                     return (
-                        <CameraDiv
-                            key={camNum}
-                            top={current.top * heightRatio - cameraSize / 2}
-                            left={current.left * heightRatio - cameraSize / 2}
-                            cameraSize={cameraSize}
-                        >
-                            <Button
-                                variant={camNum === ID ? 'contained' : 'outlined'}
-                                color="primary"
-                                size="small"
-                                className="beacon-toggle-btn"
-                                onClick={() => setID(camNum)}
-                                style={{
-                                    padding: 0,
-                                    minHeight: cameraSize,
-                                    minWidth: cameraSize,
-                                    maxHeight: cameraSize,
-                                    maxWidth: cameraSize
-                                }}
-                            >
-                                {camNum}
-                            </Button>
-                            <CameraDegreeDiv
+                        <>
+                            <CameraDiv
+                                key={camNum}
+                                top={current.top * heightRatio}
+                                left={current.left * heightRatio}
+                                degree={0}
                                 cameraSize={cameraSize}
-                                degree={cameraInfo[camNum].degree}
                             >
-                                <div />
-                            </CameraDegreeDiv>
-                        </CameraDiv>
+                                <CameraName isActive={isActive}>{camNum}</CameraName>
+                                <CameraDiv degree={cameraInfo[camNum].degree}>
+                                    <Button
+                                        variant={isActive ? 'contained' : 'outlined'}
+                                        color="primary"
+                                        size="small"
+                                        className="beacon-toggle-btn"
+                                        onClick={() => setID(camNum)}
+                                        style={{
+                                            padding: 0,
+                                            minHeight: cameraSize,
+                                            minWidth: cameraSize,
+                                            maxHeight: cameraSize,
+                                            maxWidth: cameraSize
+                                        }}
+                                    ></Button>
+                                    <CameraDegreeDiv cameraSize={cameraSize} />
+                                </CameraDiv>
+                            </CameraDiv>
+                        </>
                     );
                 })}
             </CameraLayoutDiv>
