@@ -57,7 +57,7 @@ export default class StreamedianPlayer extends React.Component {
     errHandler(err) {
         console.error('Error!', err.message);
         // this.changeSource(this.state.url);
-        this.restart();
+        if (this.player) this.restart();
     }
 
     infHandler(inf) {
@@ -84,7 +84,7 @@ export default class StreamedianPlayer extends React.Component {
                     <VideoRateControl video={this.props.id} />
                 </div>
                 <div className="rtsp-player" style={{ border: 1 }}>
-                    <video id={this.state.id} width="640" height="360" controls autoPlay>
+                    <video id={this.state.id} width="400" height="225" controls autoPlay>
                         {this.props.children}
                     </video>
                 </div>

@@ -45,7 +45,7 @@ const CameraName = styled.div.attrs(props => ({
     user-select: none;
 `;
 
-const Camera = ({ cameraInfo, heightRatio }) => {
+const Camera2 = ({ cameraInfo, heightRatio }) => {
     const [ID, setID] = useState(null);
     const cameraSize = 24;
 
@@ -90,6 +90,7 @@ const Camera = ({ cameraInfo, heightRatio }) => {
                                         degree={-cameraInfo[camNum].degree}
                                         isActive={isActive}
                                     >
+                                        {console.log('button rendered')}
                                         {camNum}
                                     </CameraName>
                                 </Button>
@@ -108,13 +109,26 @@ const Camera = ({ cameraInfo, heightRatio }) => {
                     alignItems: 'center',
                     justifyContent: 'flex-start',
                     margin: 10 + 'px',
-                    gap: 10
+                    gap: 10,
+                    flexWrap: 'wrap'
                 }}
             >
                 {ID && <Streamedian id={ID} url={url}></Streamedian>}
+                {ID && (
+                    <Streamedian
+                        id={'100'}
+                        url={`rtsp://admin:admin1234@218.153.209.100:${cameraInfo[100].ip.major}/cam/realmonitor?channel=${cameraInfo[100].ip.minor}&subtype=1`}
+                    ></Streamedian>
+                )}
+                {ID && (
+                    <Streamedian
+                        id={'50'}
+                        url={`rtsp://admin:admin1234@218.153.209.100:${cameraInfo[50].ip.major}/cam/realmonitor?channel=${cameraInfo[50].ip.minor}&subtype=1`}
+                    ></Streamedian>
+                )}
             </div>
         </>
     );
 };
 
-export default Camera;
+export default Camera2;

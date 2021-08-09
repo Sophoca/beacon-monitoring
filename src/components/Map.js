@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import BeaconLayout from './BeaconLayout';
 import ParkingSpot from './ParkingSpot';
-import Camera from './Camera';
+// import Camera from './Camera';
+import Camera2 from './Camera2';
 import styled from 'styled-components';
 
 import Button from '@material-ui/core/Button';
@@ -111,7 +112,7 @@ const Map = ({
                 )}
 
                 {cameraToggle && (
-                    <Camera cameraInfo={cameraInfo} heightRatio={heightRatio}></Camera>
+                    <Camera2 cameraInfo={cameraInfo} heightRatio={heightRatio}></Camera2>
                 )}
             </div>
         </>
