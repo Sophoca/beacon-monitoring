@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import BeaconLayout from './BeaconLayout';
-// import ParkingSpot from './ParkingSpot';
+import ParkingSpot from './ParkingSpot';
 import Camera from './Camera';
 import styled from 'styled-components';
 
@@ -99,7 +99,7 @@ const Map = ({
                     height={imgHeight}
                     onLoad={() => setIsLoading(true)}
                 />
-                {/* <ParkingSpot parkingSpot={configSlot} heightRatio={heightRatio} /> */}
+                <ParkingSpot parkingSpot={configSlot} heightRatio={heightRatio} />
 
                 {beaconToggle && (
                     <BeaconLayout

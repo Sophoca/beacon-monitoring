@@ -30,7 +30,8 @@ const ParkingSpot = ({ parkingSpot, heightRatio }) => {
                     position: 'fixed',
                     top: 0,
                     left: 525 + 'px',
-                    margin: 20 + 'px'
+                    margin: 20 + 'px',
+                    zIndex: 10
                 }}
                 onClick={toggleParkingSpace}
             >

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import Streamedian from '../Streamedian';
 import CameraDiv from './CameraDiv';
-import CamDict from './CamDict';
 
 const CameraLayoutDiv = styled.div`
     position: absolute;
@@ -16,22 +15,27 @@ const CameraLayoutDiv = styled.div`
 
 const CameraDegreeDiv = styled.div.attrs(props => ({
     style: {
-        width: props.cameraSize / 2
-        // transform: `rotate(${props.degree}deg)`
+        transform: `rotate(${props.degree}deg)`
     }
 }))`
-    position: absolute
-    border-top: 10px solid red;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    height: 0;
-    // transform-origin: top left;
-    z-index: -1;
+    position: absolute;
+
+    div {
+        width: ${props => props.cameraSize / 2}px;
+        position: absolute;
+        margin-left: -10px;
+        margin-top: -16px;
+        border-top: 4px solid rgba(63, 81, 181, 1);
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        height: 0;
+        z-index: -1;
+    }
 `;
 
 const Camera = ({ cameraInfo, heightRatio }) => {
     const [ID, setID] = useState(null);
-    const cameraSize = 26;
+    const cameraSize = 24;
     const [url, setUrl] = useState(null);
     console.log(ID);
     useEffect(() => {
@@ -72,7 +76,9 @@ const Camera = ({ cameraInfo, heightRatio }) => {
                             <CameraDegreeDiv
                                 cameraSize={cameraSize}
                                 degree={cameraInfo[camNum].degree}
-                            ></CameraDegreeDiv>
+                            >
+                                <div />
+                            </CameraDegreeDiv>
                         </CameraDiv>
                     );
                 })}
