@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import Streamedian from '../Streamedian';
@@ -118,7 +118,7 @@ const Camera2 = ({ cameraInfo, heightRatio }) => {
                     minHeight: 'min-content'
                 }}
             >
-                {console.log(cams)}
+                {console.log('cams', cams)}
                 {cams.map(cam => (
                     <Streamedian
                         key={cam.camNum}
