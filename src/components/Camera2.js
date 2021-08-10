@@ -46,23 +46,21 @@ const CameraName = styled.div.attrs(props => ({
 `;
 
 const Camera2 = ({ cameraInfo, heightRatio }) => {
-    const [ID, setID] = useState(null);
+    const [cams, setCams] = useState([]);
     const cameraSize = 24;
-
-    const [url, setUrl] = useState(null);
-    useEffect(() => {
-        ID &&
-            setUrl(
-                `rtsp://admin:admin1234@218.153.209.100:${cameraInfo[ID].ip.major}/cam/realmonitor?channel=${cameraInfo[ID].ip.minor}&subtype=1`
-            );
-    }, [ID]);
+    const create = camInfo => {
+        if (!cams.map(cam => cam.camNum).includes(camInfo.camNum)) setCams(cams.concat(camInfo));
+    };
+    const remove = camNum => {
+        setCams(cams.filter(cam => cam.camNum !== camNum));
+    };
 
     return (
         <>
             <CameraLayoutDiv className="camera-layout">
                 {Object.keys(cameraInfo).map(camNum => {
                     const current = cameraInfo[camNum];
-                    const isActive = camNum === ID;
+                    const isActive = cams.map(cam => cam.camNum).includes(camNum);
                     return (
                         <CameraDiv
                             key={camNum}
@@ -77,7 +75,13 @@ const Camera2 = ({ cameraInfo, heightRatio }) => {
                                     color="primary"
                                     size="small"
                                     className="beacon-toggle-btn"
-                                    onClick={() => setID(camNum)}
+                                    onClick={() =>
+                                        create({
+                                            camNum: camNum,
+                                            major: current.ip.major,
+                                            minor: current.ip.minor
+                                        })
+                                    }
                                     style={{
                                         padding: 0,
                                         minHeight: cameraSize,
@@ -90,7 +94,6 @@ const Camera2 = ({ cameraInfo, heightRatio }) => {
                                         degree={-cameraInfo[camNum].degree}
                                         isActive={isActive}
                                     >
-                                        {console.log('button rendered')}
                                         {camNum}
                                     </CameraName>
                                 </Button>
@@ -105,27 +108,32 @@ const Camera2 = ({ cameraInfo, heightRatio }) => {
                 style={{
                     position: 'fixed',
                     display: 'flex',
-                    width: 75 + '%',
+                    width: 100 + 'wh',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
                     margin: 10 + 'px',
                     gap: 10,
-                    flexWrap: 'wrap'
+                    flexWrap: 'wrap',
+                    overflow: 'auto',
+                    minHeight: 'min-content'
                 }}
             >
-                {ID && <Streamedian id={ID} url={url}></Streamedian>}
+                {console.log(cams)}
+                {cams.map(cam => (
+                    <Streamedian
+                        key={cam.camNum}
+                        id={cam.camNum}
+                        url={`rtsp://admin:admin1234@218.153.209.100:${cam.major}/cam/realmonitor?channel=${cam.minor}&subtype=1`}
+                        remove={remove}
+                    ></Streamedian>
+                ))}
+                {/* {ID && <Streamedian id={ID} url={url}></Streamedian>}
                 {ID && (
                     <Streamedian
                         id={'100'}
                         url={`rtsp://admin:admin1234@218.153.209.100:${cameraInfo[100].ip.major}/cam/realmonitor?channel=${cameraInfo[100].ip.minor}&subtype=1`}
                     ></Streamedian>
-                )}
-                {ID && (
-                    <Streamedian
-                        id={'50'}
-                        url={`rtsp://admin:admin1234@218.153.209.100:${cameraInfo[50].ip.major}/cam/realmonitor?channel=${cameraInfo[50].ip.minor}&subtype=1`}
-                    ></Streamedian>
-                )}
+                )} */}
             </div>
         </>
     );

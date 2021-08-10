@@ -29,7 +29,6 @@ const Map = ({
     const imageInfo = `${location} ${detail}`;
     const imgHeight = mapSize[location] ? mapSize[location] : mapSize.default;
     const heightRatio = imgHeight / configSlot.parkingLotSize.height;
-    const [isLoading, setIsLoading] = useState(false);
     const [beaconToggle, setBeaconToggle] = useState(false);
     const toggleBeacon = () => {
         setBeaconToggle(!beaconToggle);
@@ -38,8 +37,6 @@ const Map = ({
     const toggleCamera = () => {
         setCameraToggle(!cameraToggle);
     };
-
-    console.log(isLoading);
 
     return (
         <>
@@ -94,12 +91,7 @@ const Map = ({
                     top: 75 + 'px'
                 }}
             >
-                <img
-                    src={imageUrl}
-                    alt={imageInfo}
-                    height={imgHeight}
-                    onLoad={() => setIsLoading(true)}
-                />
+                <img src={imageUrl} alt={imageInfo} height={imgHeight} />
                 <ParkingSpot parkingSpot={configSlot} heightRatio={heightRatio} />
 
                 {beaconToggle && (

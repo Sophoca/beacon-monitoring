@@ -9,8 +9,7 @@ export default class StreamedianPlayer extends React.Component {
             socket: 'ws://localhost:8080/ws/',
             redirectNativeMediaErrors: true,
             errorHandler: this.errHandler.bind(this),
-            infoHandler: this.infHandler.bind(this),
-            id: this.props.id
+            infoHandler: this.infHandler.bind(this)
         };
 
         this.player = null;
@@ -45,7 +44,7 @@ export default class StreamedianPlayer extends React.Component {
             this.player.destroy();
         }
         this.player = null;
-        this.player = window.Streamedian.player(this.state.id, this.state);
+        this.player = window.Streamedian.player(this.props.id, this.state);
     }
 
     changeSource(src) {
@@ -82,9 +81,19 @@ export default class StreamedianPlayer extends React.Component {
                         Reload
                     </Button>
                     <VideoRateControl video={this.props.id} />
+                    <Button
+                        className="btn-live"
+                        variant="contained"
+                        color="secondary"
+                        size="small"
+                        onClick={() => this.props.remove(this.props.id)}
+                        style={{ marginLeft: 'auto', padding: 0, width: 'fit-content' }}
+                    >
+                        Close
+                    </Button>
                 </div>
                 <div className="rtsp-player" style={{ border: 1 }}>
-                    <video id={this.state.id} width="400" height="225" controls autoPlay>
+                    <video id={this.props.id} width="400" height="225" controls autoPlay>
                         {this.props.children}
                     </video>
                 </div>

@@ -1,10 +1,10 @@
 import React from 'react';
 import StreamedianPlayer from './StreamedianPlayer';
 
-const App = ({ id, url }) => (
+const App = ({ id, url, remove }) => (
     <div>
-        <StreamedianPlayer id={id} url={url}>
-            {<source src={url} type="application/x-rtsp" />}
+        <StreamedianPlayer id={id} url={url} remove={remove}>
+            <source src={url} type="application/x-rtsp" />
         </StreamedianPlayer>
     </div>
 );

@@ -10,7 +10,6 @@ export default class VideoRateControl extends React.Component {
         };
 
         this.video = null;
-        this.updatePlaybackRate = this.updatePlaybackRate.bind(this);
         this.livePlaybackRate = this.livePlaybackRate.bind(this);
     }
 
@@ -18,11 +17,6 @@ export default class VideoRateControl extends React.Component {
         this.video = document.getElementById(this.props.video);
         this.setState({ playbackRate: this.video.playbackRate });
         this.setState({ playbackRateText: this.video.playbackRate });
-    }
-
-    updatePlaybackRate(event) {
-        this.setState({ playbackRate: event.target.value });
-        this.setState({ playbackRateText: event.target.value });
     }
 
     livePlaybackRate(event) {
