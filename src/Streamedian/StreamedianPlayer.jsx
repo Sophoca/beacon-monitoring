@@ -64,13 +64,25 @@ export default class StreamedianPlayer extends React.Component {
     }
 
     render() {
-        console.log('check', this.props);
         return (
             <>
                 <div
                     className="rtsp-player-controller"
                     style={{ display: 'flex', gap: 10, marginBottom: 10 }}
                 >
+                    <Button
+                        className="btn-live"
+                        variant="contained"
+                        disabled
+                        size="small"
+                        style={{
+                            padding: 0,
+                            minWidth: 30,
+                            maxWidth: 30
+                        }}
+                    >
+                        {this.props.camNum}
+                    </Button>
                     <Button
                         className="btn-live"
                         variant="contained"
@@ -92,7 +104,7 @@ export default class StreamedianPlayer extends React.Component {
                         Close
                     </Button>
                 </div>
-                <div className="rtsp-player" style={{ border: 1 }}>
+                <div className="rtsp-player">
                     <video id={this.props.id} width="400" height="225" controls autoPlay>
                         {this.props.children}
                     </video>

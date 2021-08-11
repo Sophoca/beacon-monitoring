@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 import Streamedian from '../Streamedian';
 import CameraDiv from './CameraDiv';
 
@@ -46,32 +47,6 @@ const CameraName = styled.div.attrs(props => ({
     user-select: none;
 `;
 
-const initialState = {
-    cams: [
-        {
-            id: 'player0',
-            camsNum: 0,
-            major: 0,
-            minor: 0,
-            active: true
-        },
-        {
-            id: 'player1',
-            camsNum: 0,
-            major: 0,
-            minor: 0,
-            active: false
-        },
-        {
-            id: 'player2',
-            camsNum: 0,
-            major: 0,
-            minor: 0,
-            active: false
-        }
-    ]
-};
-
 function reducer(state, action) {
     switch (action.type) {
         case 'SELECT':
@@ -79,78 +54,88 @@ function reducer(state, action) {
 }
 
 const Camera2 = ({ cameraInfo, heightRatio }) => {
-    const [cams, setCams] = useState([
-        {
-            id: '0',
+    const [cams, setCams] = useState({
+        0: {
             camNum: 0,
             major: 0,
-            minor: 0,
-            active: true
+            minor: 0
         },
-        {
-            id: '1',
+        1: {
             camNum: 0,
             major: 0,
-            minor: 0,
-            active: false
+            minor: 0
         },
-        {
-            id: '2',
+        2: {
             camNum: 0,
             major: 0,
-            minor: 0,
-            active: false
+            minor: 0
         }
-    ]);
-
-    const onCreate = useCallback(
-        camInfo => {
-            const isContain = !cams.map(cam => cam.camNum).includes(camInfo.camNum);
-            isContain ? (
-                setCams(
-                    cams.map(cam =>
-                        cam.active
-                            ? {
-                                  ...cam,
-                                  camNum: camInfo.camNum,
-                                  major: camInfo.major,
-                                  minor: camInfo.minor,
-                                  active: false
-                              }
-                            : cam
-                    )
-                )
-            ) : (
-                <Snackbar autoHideDuration={1000}>Already selected camera!</Snackbar>
-            );
-        },
-        [cams]
-    );
-
-    const onRemove = useCallback(id => {
-        setCams(cams.map(cam => (cam.id === id ? { ...cam, camNum: 0, major: 0, minor: 0 } : cam)));
     });
 
-    const cameraSize = 24;
-    const create = camInfo => {
-        let flag = true;
-        if (cams.length === 3) {
-            flag = false;
-            alert("Can't select more than 3 players");
+    const [open, setOpen] = useState(false);
+    const [current, setCurrent] = useState(0);
+    const [error, setError] = useState(0);
+    const errorMsg = [
+        'None',
+        'Already selected camera!',
+        'More than 3 cameras cannot be selected!'
+    ];
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') return;
+        setOpen(false);
+    };
+
+    const handleCurrent = () => {
+        if (current < 2) setCurrent(current + 1);
+    };
+
+    const handleError = error => {
+        setError(error);
+        setOpen(true);
+    };
+
+    const onCreate = camInfo => {
+        const values = Object.values(cams).map(cam => cam.camNum);
+        const isContain = values.includes(camInfo.camNum);
+        const isFull = !values.includes(0);
+        console.log('check', values, isFull);
+        if (isContain) handleError(1);
+        else {
+            if (isFull) handleError(2);
+            setCams({ ...cams, [current]: camInfo });
+            handleCurrent();
         }
-        if (!cams.map(cam => cam.camNum).includes(camInfo.camNum) && flag)
-            setCams(cams.concat(camInfo));
     };
-    const remove = camNum => {
-        setCams(cams.filter(cam => cam.camNum !== camNum));
+
+    const onRemove = id => {
+        setCams({ ...cams, [id]: { camNum: 0, major: 0, minor: 0 } });
     };
+
+    const toggleCurrent = id => {
+        setCurrent(Number(id));
+    };
+
+    const cameraSize = 24;
 
     return (
         <>
+            <Snackbar
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                open={open}
+                autoHideDuration={2000}
+                onClose={handleClose}
+            >
+                <Alert variant="filled" severity="error">
+                    {errorMsg[error]}
+                </Alert>
+            </Snackbar>
             <CameraLayoutDiv className="camera-layout">
                 {Object.keys(cameraInfo).map(camNum => {
                     const current = cameraInfo[camNum];
-                    const isActive = cams.map(cam => cam.camNum).includes(camNum);
+                    const isActive = Object.values(cams)
+                        .map(cam => cam.camNum)
+                        .includes(camNum);
                     return (
                         <CameraDiv
                             key={camNum}
@@ -199,29 +184,35 @@ const Camera2 = ({ cameraInfo, heightRatio }) => {
                     position: 'fixed',
                     display: 'flex',
                     width: 100 + 'wh',
+                    height: 55 + '%',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
                     margin: 10 + 'px',
+                    gap: 10,
                     flexWrap: 'wrap',
                     overflow: 'auto',
                     minHeight: 'min-content'
                 }}
             >
-                {console.log('cams', cams)}
-                {cams.map(cam => {
+                {console.log('cams', cams, current)}
+                {Object.keys(cams).map(id => {
+                    const cam = cams[id];
                     const url =
                         cam.major === 0 && cam.minor === 0
                             ? null
                             : `rtsp://admin:admin1234@218.153.209.100:${cam.major}/cam/realmonitor?channel=${cam.minor}&subtype=1`;
-                    // return (
-                    //     <Streamedian
-                    //         key={cam.camNum}
-                    //         id={cam.camNum}
-                    //         url={url}
-                    //         // url={`rtsp://admin:admin1234@218.153.209.100:${cam.major}/cam/realmonitor?channel=${cam.minor}&subtype=1`}
-                    //         remove={remove}
-                    //     ></Streamedian>
-                    // );
+                    return (
+                        <Streamedian
+                            key={id}
+                            id={id}
+                            camNum={cam.camNum}
+                            url={url}
+                            // url={`rtsp://admin:admin1234@218.153.209.100:${cam.major}/cam/realmonitor?channel=${cam.minor}&subtype=1`}
+                            onRemove={onRemove}
+                            toggleCurrent={toggleCurrent}
+                            current={current}
+                        ></Streamedian>
+                    );
                 })}
                 {/* {ID && <Streamedian id={ID} url={url}></Streamedian>}
                 {ID && (

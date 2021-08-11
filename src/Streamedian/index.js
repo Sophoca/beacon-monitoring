@@ -2,21 +2,30 @@ import React from 'react';
 import StreamedianPlayer from './StreamedianPlayer';
 import styled from 'styled-components';
 
-const PlayerDiv = styled.div`
+const PlayerDiv = styled.div.attrs(props => ({
+    style: {
+        border: '1px solid ' + (props.isActive ? 'blue' : 'black')
+    }
+}))`
     padding: 10px;
-    border: 1px solid black;
+    width: 400px;
+    height: 265px;
 `;
 
-const App = ({ id, url, remove }) => (
+const App = ({ id, camNum, url, onRemove, toggleCurrent, current }) => (
     <PlayerDiv
         className="player"
         onClick={() => {
-            console.log('onClick', id);
+            toggleCurrent(id);
         }}
+        isActive={id == current}
     >
-        <StreamedianPlayer id={id} url={url} remove={remove}>
-            <source src={url} type="application/x-rtsp" />
-        </StreamedianPlayer>
+        {console.log('check', id == current)}
+        {url && (
+            <StreamedianPlayer id={id} camNum={camNum} url={url} remove={onRemove}>
+                <source src={url} type="application/x-rtsp" />
+            </StreamedianPlayer>
+        )}
     </PlayerDiv>
 );
 
