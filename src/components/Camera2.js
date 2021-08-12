@@ -175,7 +175,6 @@ const Camera2 = ({ cameraInfo, heightRatio }) => {
                     display: 'flex',
                     width: 100 + 'wh',
                     height: 55 + '%',
-                    alignItems: 'center',
                     justifyContent: 'flex-start',
                     margin: 10 + 'px',
                     gap: 10,

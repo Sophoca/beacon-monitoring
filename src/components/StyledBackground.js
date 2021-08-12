@@ -11,7 +11,7 @@ const StyledBackground = styled.div`
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.3);
-    z-index: 30;
+    z-index: 100;
 `;
 
 export default StyledBackground;

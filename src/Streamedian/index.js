@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const PlayerDiv = styled.div.attrs(props => ({
     style: {
-        border: '3px solid ' + (props.isActive ? 'rgba(63, 81, 181, 0.3)' : 'black')
+        border: '2px solid ' + (props.isActive ? 'rgba(63, 81, 181, 0.4)' : 'black')
     }
 }))`
     padding: 10px;
@@ -22,9 +22,10 @@ const App = ({ id, camNum, url, onRemove, toggleCurrent, current }) => (
         onClick={() => {
             toggleCurrent(id);
         }}
-        isActive={id == current}
+        // eslint-disable-next-line
+        isActive={Number(id) === current}
     >
-        {console.log('check', id == current)}
+        {/* {console.log('check', id == current)} */}
         {url && (
             <StreamedianPlayer id={id} camNum={camNum} url={url} remove={onRemove}>
                 <source src={url} type="application/x-rtsp" />

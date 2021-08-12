@@ -15,7 +15,8 @@ import EqualizerIcon from '@material-ui/icons/Equalizer';
 
 const Aside = ({ lists }) => {
     const pathName = useLocation().pathname;
-    // console.log('Aside', lists);
+    const slotUrls = lists.map(obj => obj.slotUrl);
+    console.log('Aside', slotUrls);
 
     return (
         <ProSidebar>
