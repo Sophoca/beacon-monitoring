@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -47,11 +47,7 @@ const CameraName = styled.div.attrs(props => ({
     user-select: none;
 `;
 
-function reducer(state, action) {
-    switch (action.type) {
-        case 'SELECT':
-    }
-}
+const errorMsg = ['None', 'Already selected camera!', 'More than 3 cameras cannot be selected!'];
 
 const Camera2 = ({ cameraInfo, heightRatio }) => {
     const [cams, setCams] = useState({
@@ -75,11 +71,6 @@ const Camera2 = ({ cameraInfo, heightRatio }) => {
     const [open, setOpen] = useState(false);
     const [current, setCurrent] = useState(0);
     const [error, setError] = useState(0);
-    const errorMsg = [
-        'None',
-        'Already selected camera!',
-        'More than 3 cameras cannot be selected!'
-    ];
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') return;
@@ -99,7 +90,6 @@ const Camera2 = ({ cameraInfo, heightRatio }) => {
         const values = Object.values(cams).map(cam => cam.camNum);
         const isContain = values.includes(camInfo.camNum);
         const isFull = !values.includes(0);
-        console.log('check', values, isFull);
         if (isContain) handleError(1);
         else {
             if (isFull) handleError(2);
@@ -207,7 +197,6 @@ const Camera2 = ({ cameraInfo, heightRatio }) => {
                             id={id}
                             camNum={cam.camNum}
                             url={url}
-                            // url={`rtsp://admin:admin1234@218.153.209.100:${cam.major}/cam/realmonitor?channel=${cam.minor}&subtype=1`}
                             onRemove={onRemove}
                             toggleCurrent={toggleCurrent}
                             current={current}

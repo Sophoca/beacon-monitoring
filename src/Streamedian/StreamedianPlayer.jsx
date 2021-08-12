@@ -74,14 +74,13 @@ export default class StreamedianPlayer extends React.Component {
                         className="btn-live"
                         variant="contained"
                         disabled
-                        size="small"
                         style={{
                             padding: 0,
                             minWidth: 30,
                             maxWidth: 30
                         }}
                     >
-                        {this.props.camNum}
+                        <div style={{ color: 'black' }}>{this.props.camNum}</div>
                     </Button>
                     <Button
                         className="btn-live"
