@@ -42,7 +42,7 @@ function App() {
                     <Aside lists={data.lists}></Aside>
                 </div>
                 <div className="main">
-                    <Main reload={reload}></Main>
+                    <Main lists={data.lists} reload={reload}></Main>
                 </div>
             </BrowserRouter>
         </div>

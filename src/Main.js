@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { Overview, Status } from './pages';
 
-class Main extends Component {
-    render() {
-        return (
-            <Switch>
-                <Route exact path="/" component={Overview} />
-                <Route
-                    path="/:location/:floor"
-                    render={props => <Status {...props} mainReload={this.props.reload} />}
-                />
-                <Route
-                    path="/:location"
-                    render={props => <Status {...props} mainReload={this.props.reload} />}
-                />
-                <Redirect path="*" to="/" />
-            </Switch>
-        );
-    }
+function Main(props) {
+    const slotURL = props.lists.reduce((obj, d) => ({ ...obj, [d.key]: d.slotUrl }), {});
+
+    return (
+        <Switch>
+            <Route exact path="/" render={props => <Overview {...props} slotURL={slotURL} />} />
+            <Route
+                path="/:location/:floor"
+                render={props => <Status {...props} mainReload={props.reload} />}
+            />
+            <Route
+                path="/:location"
+                render={props => <Status {...props} mainReload={props.reload} />}
+            />
+            <Redirect path="*" to="/" />
+        </Switch>
+    );
 }
 
 export default Main;
