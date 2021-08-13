@@ -4,6 +4,7 @@ import { Overview, Status } from './pages';
 
 function Main(props) {
     const slotURL = props.lists.reduce((obj, d) => ({ ...obj, [d.key]: d.slotUrl }), {});
+    // location, url 따로 배열로 저장하는 방식 고려
 
     return (
         <Switch>
