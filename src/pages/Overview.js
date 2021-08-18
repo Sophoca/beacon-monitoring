@@ -9,44 +9,52 @@ import axios from 'axios';
 
 const Overview = ({ slotURL }) => {
     const [lists, setLists] = useState([]);
+    const [data, setData] = useState([]);
+    const slotLen = Object.keys(slotURL).length;
 
     const getLists = async () => {
         const URLs = Object.values(slotURL);
-        const promises = URLs.map(el => axios.get(el));
-        const responses = await Promise.all(promises);
+        const responses = await Promise.all(URLs.map(el => axios.get(el)));
         setLists(responses.map(response => response.data.lists));
     };
     useEffect(() => {
         getLists();
+        // const interval = setInterval(() => getLists(), 10000);
+        // return () => clearInterval(interval);
+        // eslint-disable-next-line
     }, []);
-    // console.log(slotURL['Cheonho']);
-    // Promise.all(Object.values(slotURL).map(url => fetch(url)))
-    //     .then(responses => {
-    //         Promise.all(responses.map(response => response.json()));
-    //     })
-    //     .then(data => setData(data))
-    //     .catch(e => console.log(e));
 
-    // useEffect(() => {
-    //     (async () => {
-    //         // const locations = Object.keys(slotURL);
-    //         const data1 = getLists(slotURL['Cheonho']);
-    //         const data2 = await axios.get('https://jsonplaceholder.typicode.com/todos/2');
-    //         setData({ data1, data2 });
-    //     })();
-    // }, []);
+    const calcTime = slotInfo => {
+        const calc = slotInfo.reduce((obj, slot) => {
+            obj[slot.modified_on] = (obj[slot.modified_on] || 0) + 1;
+            return obj;
+        }, {});
+        console.log('calc', calc);
+        // return [res[0], len > 1 ? res[len - 1] : null];
+    };
 
-    console.log('data', lists);
+    useEffect(() => {
+        if (Object.keys(slotURL).length === lists.length) {
+            const response = Object.keys(slotURL).map((location, idx) => ({
+                location: location,
+                data: calcTime(lists[idx])
+            }));
+            setData(response);
+            console.log(response);
+        }
+    }, [slotURL, lists]);
+
+    console.log('data', lists, slotLen);
     return (
         <div>
             overview
-            {/* {Object.keys(slotURL).map(location => {
+            {data.map(el => {
                 return (
-                    <div key={location}>
-                        {location}: {slotURL[location]}
+                    <div key={el.location}>
+                        {el.location}: {el.data}
                     </div>
                 );
-            })} */}
+            })}
         </div>
     );
 };
