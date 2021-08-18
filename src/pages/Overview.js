@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+import StyledBackground from '../components/StyledBackground';
+import { CircularProgress } from '@material-ui/core';
+import OverviewContent from '../components/OverviewContent';
+
+const OverviewContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    padding: 50px;
+`;
 
 const Overview = ({ slotURL }) => {
     const [lists, setLists] = useState([]);
     const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const getLists = async () => {
+        setIsLoading(true);
         const URLs = Object.values(slotURL);
         const responses = await Promise.all(URLs.map(el => axios.get(el)));
         setLists(responses.map(response => response.data.lists));
@@ -18,7 +32,6 @@ const Overview = ({ slotURL }) => {
         // return () => clearInterval(interval);
         // eslint-disable-next-line
     }, []);
-    console.log('lists', lists);
 
     const calcTime = slotInfo =>
         slotInfo.reduce((obj, slot) => {
@@ -35,18 +48,29 @@ const Overview = ({ slotURL }) => {
         if (Object.keys(slotURL).length === lists.length) {
             const response = Object.keys(slotURL).map((location, idx) => ({
                 location: location,
-                data: calcTime(lists[idx])
+                data: getTime(calcTime(lists[idx]))
             }));
             setData(response);
+            setIsLoading(false);
             console.log('data', response);
         }
     }, [slotURL, lists]);
 
-    return (
-        <div style={{ display: 'flex', overflow: 'auto', flexDirection: 'column' }}>
-            overview
-            {/* {console.log(getChartData(data))} */}
-        </div>
+    console.log(isLoading);
+
+    return isLoading ? (
+        <StyledBackground>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <CircularProgress color="inherit" />
+                <p>Overview</p>
+            </div>
+        </StyledBackground>
+    ) : (
+        <OverviewContainer>
+            {data.map(el => (
+                <OverviewContent el={el} />
+            ))}
+        </OverviewContainer>
     );
 };
 
