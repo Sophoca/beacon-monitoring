@@ -10,7 +10,8 @@ const OverviewContainer = styled.div`
     flex-direction: column;
     gap: 10px;
     height: 100%;
-    padding: 50px;
+    padding: 20px;
+    word-break: keep-all;
 `;
 
 const Overview = ({ slotURL }) => {
@@ -28,8 +29,8 @@ const Overview = ({ slotURL }) => {
         getLists();
         console.log('slotURL', slotURL);
 
-        // const interval = setInterval(() => getLists(), 10000);
-        // return () => clearInterval(interval);
+        const interval = setInterval(() => getLists(), 10000);
+        return () => clearInterval(interval);
         // eslint-disable-next-line
     }, []);
 
@@ -67,8 +68,9 @@ const Overview = ({ slotURL }) => {
         </StyledBackground>
     ) : (
         <OverviewContainer>
-            {data.map(el => (
-                <OverviewContent el={el} />
+            <h3>Overview</h3>
+            {data.map((el, idx) => (
+                <OverviewContent key={idx} el={el} />
             ))}
         </OverviewContainer>
     );

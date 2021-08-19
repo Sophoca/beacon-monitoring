@@ -18,12 +18,10 @@ const OverviewContent = ({ el }) => (
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                flex: 1
+                flex: 2
             }}
         >
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <h3 style={{ flex: 1, margin: 10 }}>{el.location}</h3>
-            </div>
+            <h4>{el.location}</h4>
         </div>
         <div
             style={{
