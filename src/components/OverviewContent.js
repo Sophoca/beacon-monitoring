@@ -1,6 +1,16 @@
 import styled from 'styled-components';
 import Widget from './Widget';
 
+const Title1 = styled.div`
+    font-size: medium;
+    margin-left: 10px;
+`;
+const Title2 = styled.div`
+    font-size: large;
+    font-weight: bold;
+    margin-left: 10px;
+`;
+
 const OverviewContent = ({ el }) => (
     <div
         style={{
@@ -17,11 +27,13 @@ const OverviewContent = ({ el }) => (
             style={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                flex: 2
+                alignItems: 'flex-start',
+                flex: 2,
+                gap: 10
             }}
         >
-            <h4>{el.location}</h4>
+            <Title1>{el.key}</Title1>
+            <Title2>{el.title}</Title2>
         </div>
         <div
             style={{

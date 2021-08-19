@@ -12,6 +12,7 @@ const OverviewContainer = styled.div`
     height: 100%;
     padding: 20px;
     word-break: keep-all;
+    min-width: 640px;
 `;
 
 const Overview = ({ slotURL }) => {
@@ -21,7 +22,7 @@ const Overview = ({ slotURL }) => {
 
     const getLists = async () => {
         setIsLoading(true);
-        const URLs = Object.values(slotURL);
+        const URLs = Object.values(slotURL).map(el => el.slotUrl);
         const responses = await Promise.all(URLs.map(el => axios.get(el)));
         setLists(responses.map(response => response.data.lists));
     };
@@ -48,7 +49,8 @@ const Overview = ({ slotURL }) => {
     useEffect(() => {
         if (Object.keys(slotURL).length === lists.length) {
             const response = Object.keys(slotURL).map((location, idx) => ({
-                location: location,
+                key: location,
+                title: slotURL[location].title,
                 data: getTime(calcTime(lists[idx]))
             }));
             setData(response);
@@ -59,16 +61,16 @@ const Overview = ({ slotURL }) => {
 
     console.log(isLoading);
 
-    return isLoading ? (
-        <StyledBackground>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <CircularProgress color="inherit" />
-                <p>Overview</p>
-            </div>
-        </StyledBackground>
-    ) : (
+    return (
         <OverviewContainer>
-            <h3>Overview</h3>
+            <div>
+                <div
+                    style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 10 }}
+                >
+                    <h3>Overview</h3>
+                    {isLoading && <CircularProgress size={20} thickness={5} color="primary" />}
+                </div>
+            </div>
             {data.map((el, idx) => (
                 <OverviewContent key={idx} el={el} />
             ))}

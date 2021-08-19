@@ -3,7 +3,11 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { Overview, Status } from './pages';
 
 function Main(props) {
-    const slotURL = props.lists.reduce((obj, d) => ({ ...obj, [d.key]: d.slotUrl }), {});
+    const slotURL = props.lists.reduce(
+        (obj, d) => ({ ...obj, [d.key]: { title: d.title, slotUrl: d.slotUrl } }),
+        {}
+    );
+    console.log('lists', props.lists);
     // location, url 따로 배열로 저장하는 방식 고려
 
     return (
