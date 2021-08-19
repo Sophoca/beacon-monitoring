@@ -183,7 +183,6 @@ const Camera2 = ({ cameraInfo, heightRatio }) => {
                     minHeight: 'min-content'
                 }}
             >
-                {console.log('cams', cams, current)}
                 {Object.keys(cams).map(id => {
                     const cam = cams[id];
                     const url =

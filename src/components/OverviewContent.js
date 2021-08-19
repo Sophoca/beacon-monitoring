@@ -10,49 +10,47 @@ const Title2 = styled.div`
     font-weight: bold;
     margin-left: 10px;
 `;
+const ContentContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px solid rgb(245, 245, 245);
+    background: rgb(250, 250, 250);
+    padding: 10px;
+`;
+const Content = styled.div`
+    display: flex;
+    gap: 10px;
+`;
 
 const OverviewContent = ({ el }) => (
-    <div
-        style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            borderRadius: 10,
-            border: '1px solid rgb(245,245,245)',
-            background: 'rgba(250, 250, 250)',
-            padding: 10 + 'px'
-        }}
-    >
-        <div
+    <ContentContainer>
+        <Content
             style={{
-                display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
-                flex: 2,
-                gap: 10
+                flex: 2
             }}
         >
             <Title1>{el.key}</Title1>
             <Title2>{el.title}</Title2>
-        </div>
-        <div
+        </Content>
+        <Content
             style={{
-                display: 'flex',
-                width: 100 + '%',
-                flex: 3,
                 flexDirection: 'row',
-                gap: 10
+                flex: 3
             }}
         >
             {el.data[1] ? (
                 <>
                     <Widget
-                        title="The oldest modified time"
+                        title="Oldest modified time"
                         description={el.data[0]}
                         style={{ flex: 1 }}
                     />
                     <Widget
-                        title="The latest modified time"
+                        title="Latest modified time"
                         description={el.data[1]}
                         style={{ flex: 1 }}
                     />
@@ -60,8 +58,8 @@ const OverviewContent = ({ el }) => (
             ) : (
                 <Widget title="Modified time" description={el.data[0]} style={{ flex: 1 }} />
             )}
-        </div>
-    </div>
+        </Content>
+    </ContentContainer>
 );
 
 export default OverviewContent;

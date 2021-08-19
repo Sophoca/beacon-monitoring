@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import StyledBackground from '../components/StyledBackground';
 import { CircularProgress } from '@material-ui/core';
 import OverviewContent from '../components/OverviewContent';
 
@@ -12,7 +11,14 @@ const OverviewContainer = styled.div`
     height: 100%;
     padding: 20px;
     word-break: keep-all;
-    min-width: 640px;
+    min-width: 620px;
+`;
+
+const TitleContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
 `;
 
 const Overview = ({ slotURL }) => {
@@ -28,8 +34,6 @@ const Overview = ({ slotURL }) => {
     };
     useEffect(() => {
         getLists();
-        console.log('slotURL', slotURL);
-
         const interval = setInterval(() => getLists(), 10000);
         return () => clearInterval(interval);
         // eslint-disable-next-line
@@ -47,6 +51,7 @@ const Overview = ({ slotURL }) => {
     };
 
     useEffect(() => {
+        // lists(slotUrl로부터 받아온 data)와 지역 정보 통합
         if (Object.keys(slotURL).length === lists.length) {
             const response = Object.keys(slotURL).map((location, idx) => ({
                 key: location,
@@ -55,21 +60,16 @@ const Overview = ({ slotURL }) => {
             }));
             setData(response);
             setIsLoading(false);
-            console.log('data', response);
         }
     }, [slotURL, lists]);
-
-    console.log(isLoading);
 
     return (
         <OverviewContainer>
             <div>
-                <div
-                    style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 10 }}
-                >
+                <TitleContainer>
                     <h3>Overview</h3>
                     {isLoading && <CircularProgress size={20} thickness={5} color="primary" />}
-                </div>
+                </TitleContainer>
             </div>
             {data.map((el, idx) => (
                 <OverviewContent key={idx} el={el} />

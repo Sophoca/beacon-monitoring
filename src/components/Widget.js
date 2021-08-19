@@ -1,29 +1,29 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const WidgetContainer1 = styled.div`
+    padding: 10px;
+    border: 1px solid rgb(245, 245, 245);
+    border-radius: 10px;
+    background: white;
+    width: 100%;
+`;
+const WidgetContainer2 = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+`;
 
 const Widget = ({ title, description }) => {
     return (
-        <div
-            style={{
-                padding: 10,
-                border: '1px solid rgb(245,245,245)',
-                borderRadius: 10,
-                background: 'white',
-                width: 100 + '%'
-            }}
-        >
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 5,
-                    marginTop: 5,
-                    marginBottom: 5
-                }}
-            >
+        <WidgetContainer1>
+            <WidgetContainer2>
                 <div style={{ fontSize: 'small' }}>{title}</div>
                 <div style={{ fontSize: 'medium', fontWeight: 'bold' }}>{description}</div>
-            </div>
-        </div>
+            </WidgetContainer2>
+        </WidgetContainer1>
     );
 };
 
