@@ -6,8 +6,11 @@ const OverviewContent = ({ el }) => (
         style={{
             display: 'flex',
             alignItems: 'center',
-            width: 100 + '%',
-            gap: 10
+            gap: 10,
+            borderRadius: 10,
+            border: '1px solid rgb(245,245,245)',
+            background: 'rgba(250, 250, 250)',
+            padding: 10 + 'px'
         }}
     >
         <div
