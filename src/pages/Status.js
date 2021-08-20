@@ -44,16 +44,6 @@ function Status({ match, location: { state }, mainReload }) {
             className="Status"
             style={{ position: 'absolute', width: 'content-fit', height: '100%' }}
         >
-            {/* <Button
-                variant="contained"
-                color="primary"
-                className="mainAPI-reload-btn"
-                startIcon={<RefreshIcon />}
-                onClick={mainReload}
-                style={{ position: 'fixed', margin: 20 + 'px', zIndex: 1 }}
-            >
-                Main
-            </Button> */}
             <Map
                 location={location}
                 detail={detail}

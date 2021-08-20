@@ -7,8 +7,6 @@ function Main(props) {
         (obj, d) => ({ ...obj, [d.key]: { title: d.title, slotUrl: d.slotUrl } }),
         {}
     );
-    console.log('lists', props.lists);
-    // location, url 따로 배열로 저장하는 방식 고려
 
     return (
         <Switch>

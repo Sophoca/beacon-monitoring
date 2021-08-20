@@ -36,7 +36,6 @@ const Overview = ({ slotURL }) => {
         getLists();
         const interval = setInterval(() => getLists(), 10000);
         return () => clearInterval(interval);
-        // eslint-disable-next-line
     }, []);
 
     const calcTime = slotInfo =>

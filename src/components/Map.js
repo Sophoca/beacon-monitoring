@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import BeaconLayout from './BeaconLayout';
 import ParkingSpot from './ParkingSpot';
-// import Camera from './Camera';
-import Camera2 from './Camera2';
+import Camera from './Camera';
 import styled from 'styled-components';
-
 import Button from '@material-ui/core/Button';
 
 const mapSize = { Kintex: 800, Cheonho: 300, PyeongchonUrvineFirst: 800, default: 600 };
@@ -104,7 +102,7 @@ const Map = ({
                 )}
 
                 {cameraToggle && (
-                    <Camera2 cameraInfo={cameraInfo} heightRatio={heightRatio}></Camera2>
+                    <Camera cameraInfo={cameraInfo} heightRatio={heightRatio}></Camera>
                 )}
             </div>
         </>
