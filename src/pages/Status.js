@@ -32,7 +32,6 @@ function Status({ match, location: { state }, mainReload }) {
     if (error) return <div>에러가 발생했습니다-Status {error}</div>;
     if (!data) return <div>반환값 없음-Status</div>;
 
-    // console.log(data.mapInfo);
     const imageUrl = data.mapInfo.imageUrl[detail];
     const configSlot = data.mapInfo.configSlot[detail];
     const allBeaconInfo = data.mapInfo.allBeaconInfo;

@@ -56,7 +56,7 @@ const OverviewContent = ({ el }) => (
                     />
                 </>
             ) : (
-                <Widget title="Modified time" description={el.data[0]} style={{ flex: 1 }} />
+                <Widget title="Modified time" description={el.data[0]} />
             )}
         </Content>
     </ContentContainer>

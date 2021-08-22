@@ -17,6 +17,7 @@ function App() {
     const URL = 'http://115.144.111.248:3030/api/merge/info';
 
     const { data, error, isLoading, reload } = useAsync({
+        // API 호출, 로딩 중이거나 에러 상태 처리
         promiseFn: getLists,
         URL
     });
@@ -32,8 +33,6 @@ function App() {
         );
     if (error) return <div>에러가 발생했습니다-Layout {console.error(error)}</div>;
     if (!data) return <div>반환값 없음-Layout</div>;
-
-    // console.log('layout', data.lists);
 
     return (
         <div className="layout">

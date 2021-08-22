@@ -8,17 +8,6 @@ const ParkingSpot = ({ parkingSpot, heightRatio }) => {
     const toggleParkingSpace = () => {
         setParkingSpace(!parkingSpace);
     };
-    // const temp = Object.keys(parkingSpot.parkingSpotPosition).reduce(
-    //     (obj, d) => ({
-    //         ...obj,
-    //         [d]: {
-    //             top: parkingSpot.parkingSpotPosition[d].top,
-    //             left: parkingSpot.parkingSpotPosition[d].left
-    //         }
-    //     }),
-    //     {}
-    // );
-    // console.log('parking spot top-left', temp);
     return (
         <>
             <Button

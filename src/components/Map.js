@@ -25,7 +25,8 @@ const Map = ({
     realBeaconURL
 }) => {
     const imageInfo = `${location} ${detail}`;
-    const imgHeight = mapSize[location] ? mapSize[location] : mapSize.default;
+    const imgHeight = mapSize[location] || mapSize.default;
+    // 주차장 지도를 resize하여 표시하기 때문에 높이 비율을 계산
     const heightRatio = imgHeight / configSlot.parkingLotSize.height;
     const [beaconToggle, setBeaconToggle] = useState(false);
     const toggleBeacon = () => {
@@ -39,6 +40,7 @@ const Map = ({
     return (
         <>
             <ButtonLayout>
+                {/* 비콘 컴포넌트 토글 버튼 */}
                 {!cameraToggle && allBeaconInfo ? (
                     <Button
                         variant={beaconToggle ? 'outlined' : 'contained'}
@@ -59,6 +61,8 @@ const Map = ({
                         Beacon
                     </Button>
                 )}
+
+                {/* 카메라 컴포넌트 토글 버튼 */}
                 {!beaconToggle && cameraInfo ? (
                     <Button
                         variant={cameraToggle ? 'outlined' : 'contained'}
@@ -89,9 +93,13 @@ const Map = ({
                     top: 75 + 'px'
                 }}
             >
+                {/* 주차장 지도 */}
                 <img src={imageUrl} alt={imageInfo} height={imgHeight} />
+
+                {/* 주차면 좌표 반환, 주석처리해도 무방 */}
                 <ParkingSpot parkingSpot={configSlot} heightRatio={heightRatio} />
 
+                {/* 비콘 데이터 표시 */}
                 {beaconToggle && (
                     <BeaconLayout
                         allBeaconInfo={allBeaconInfo}
@@ -101,6 +109,7 @@ const Map = ({
                     />
                 )}
 
+                {/* 카메라 데이터 표시 */}
                 {cameraToggle && (
                     <Camera cameraInfo={cameraInfo} heightRatio={heightRatio}></Camera>
                 )}
