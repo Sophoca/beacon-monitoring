@@ -55,8 +55,9 @@ const Camera = ({ cameraInfo, heightRatio }) => {
         'Already selected camera!',
         `More than ${totalCam} cameras cannot be selected!`
     ];
+
+    // 카메라 정보를 저장하기 위한 object 초기화
     const [cams, setCams] = useState(
-        // 카메라 정보를 저장하기 위한 object 초기화
         Object.fromEntries(
             Array.from({ length: totalCam }, (v, i) => [i, { camNum: 0, major: 0, minor: 0 }])
         )
@@ -65,26 +66,26 @@ const Camera = ({ cameraInfo, heightRatio }) => {
     const [current, setCurrent] = useState(0); // 현재 선택된 카메라 플레이어
     const [error, setError] = useState(0); // error type
 
+    // 경고 메시지 팝업창 닫기
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') return;
-        // 경고 메시지 팝업창 닫기
         setOpen(false);
     };
 
+    // 영상 표시할 카메라 플레이어 id 설정
     const handleCurrent = () => {
-        // 영상 표시할 카메라 플레이어 id 설정
         if (current < totalCam - 1) setCurrent(current + 1);
     };
 
+    // 경고 메시지 팝업창 열기 (error type에 따라)
     const handleError = error => {
-        // 경고 메시지 팝업창 열기 (error type에 따라)
         setError(error);
         setOpen(true);
     };
 
+    /* 카메라 버튼 onClick 함수
+    카메라 정보 저장 및 에러 처리 */
     const onCreate = camInfo => {
-        // 카메라 버튼 onClick 함수
-        // 카메라 정보 저장 및 에러 처리
         const values = Object.values(cams).map(cam => cam.camNum);
         const isContain = values.includes(camInfo.camNum);
         const isFull = !values.includes(0);
@@ -96,13 +97,13 @@ const Camera = ({ cameraInfo, heightRatio }) => {
         }
     };
 
+    // 플레이어 close 버튼 onClick 함수
     const onRemove = id => {
-        // 플레이어 close 버튼 onClick 함수
         setCams({ ...cams, [id]: { camNum: 0, major: 0, minor: 0 } });
     };
 
+    // 영상 표시할 플레이어 id 변경
     const toggleCurrent = id => {
-        // 영상 표시할 플레이어 id 변경
         setCurrent(Number(id));
     };
 

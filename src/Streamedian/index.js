@@ -22,10 +22,8 @@ const App = ({ id, camNum, url, onRemove, toggleCurrent, current }) => (
         onClick={() => {
             toggleCurrent(id);
         }}
-        // eslint-disable-next-line
         isActive={Number(id) === current}
     >
-        {/* {console.log('check', id == current)} */}
         {url && (
             <StreamedianPlayer id={id} camNum={camNum} url={url} remove={onRemove}>
                 <source src={url} type="application/x-rtsp" />

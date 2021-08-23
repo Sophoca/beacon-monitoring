@@ -42,18 +42,19 @@ const Overview = ({ slotURL }) => {
         const interval = setInterval(() => getLists(), 10000);
         // 컴포넌트 해제 시, interval 해제
         return () => clearInterval(interval);
+        // eslint-disable-next-line
     }, []);
 
+    // 중복되는 시간 카운팅
     const calcTime = slotInfo =>
-        // 중복되는 시간 카운팅
         slotInfo.reduce((obj, slot) => {
             obj[slot.modified_on] = (obj[slot.modified_on] || 0) + 1;
             return obj;
         }, {});
 
+    // calcTime의 결과값에서 최신/오래된 시간 배열형태로 추출
+    // 만약 시간 값이 하나밖에 없다면 배열의 2번째 값은 null
     const getTime = timeInfo => {
-        // calcTime의 결과값에서 최신/오래된 시간 배열형태로 추출
-        // 만약 시간 값이 하나밖에 없다면 배열의 2번째 값은 null
         const time = Object.keys(timeInfo).sort();
         return [time[0], time.length > 1 ? time[time.length - 1] : null];
     };

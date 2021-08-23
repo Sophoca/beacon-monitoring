@@ -71,7 +71,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, heightRatio, detail }) => 
             </BeaconLayoutDiv>
         );
 
-    // console.log(data);
+    // 비콘 수집기로부터 받은 데이터를 major, minor로 분리하여 중복 제거/저장
     const realBeaconInfo = Object.values(data).reduce(
         (obj, d) =>
             deepmerge(
@@ -90,6 +90,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, heightRatio, detail }) => 
         {}
     );
 
+    // restKeys를 구하기 위해 설치된 비콘의 major, minor을 저장
     const allBeaconKeys = Object.values(allBeaconInfo).reduce(
         (obj, d) =>
             deepmerge(
@@ -102,6 +103,8 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, heightRatio, detail }) => 
         {}
     );
 
+    // 비콘 수집기로부터 얻은 데이터와 설치된 비콘의 데이터를 비교
+    // 설치된 비콘 데이터에 없지만 신호가 수신된 비콘의 데이터 추출
     const restKeys = Object.keys(realBeaconInfo).reduce(
         (obj, d) => ({
             ...obj,
@@ -131,6 +134,7 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, heightRatio, detail }) => 
         return msg;
     }
 
+    // restKeys의 gateway에 대한 추가적인 정보 메시지
     function ShowGatewayMac(major, minor) {
         const defaultMsg = GetMessage(major, minor);
         const gatewayMac = Object.keys(realBeaconInfo[major][minor].gatewayMac).join(', ');
@@ -176,7 +180,6 @@ const BeaconLayout = ({ allBeaconInfo, realBeaconURL, heightRatio, detail }) => 
                             <StyledP style={{ textAlign: 'center' }}>No Signal</StyledP>
                         </>
                     );
-                    // battery 상태 isAbnormal로 넘겨주는거 고민
                     return (
                         <Beacon
                             key={idx}
