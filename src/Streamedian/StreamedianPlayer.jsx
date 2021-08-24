@@ -6,7 +6,7 @@ export default class StreamedianPlayer extends React.Component {
         super(props);
         this.state = {
             bufferDuration: 10,
-            socket: 'ws://localhost:8080/ws/', // websocket 포트 번호
+            socket: 'ws://115.144.111.233:8080/ws/', // websocket 포트 번호
             redirectNativeMediaErrors: true,
             errorHandler: this.errHandler.bind(this),
             infoHandler: this.infHandler.bind(this)
